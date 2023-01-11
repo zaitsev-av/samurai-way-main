@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
-
+import Accordion from "./component/Accordion/Accordion";
+import Rating from "./component/Rating/Rating";
+import PageTitle from "./component/AppTitle/PegeTitle";
 
 function App(props: any) {
     console.log('App rendering')
