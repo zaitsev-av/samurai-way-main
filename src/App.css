@@ -1,0 +1,22 @@
+.app-wrapper {
+    display: grid;
+    gap: 5px;
+    /*width: 1200px;*/
+    margin: 0 auto;
+    padding: 1rem;
+    grid-template-areas:
+    'header      header     header'
+    'nav         content    content';
+    /*grid-template-rows: 60px 1fr;*/
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.app-wrapper-content {
+    display: grid;
+    grid-area: content;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    /*margin: 10px;*/
+    background-color: aqua;
+    border-radius: 20px;
+}
