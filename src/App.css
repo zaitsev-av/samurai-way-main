@@ -2,7 +2,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(90deg, #200e20 10%, #a43133 56%, #b17429 100%);
+    background-color: #1a1a1d;
 }
 
 .app-wrapper {
@@ -25,6 +25,9 @@ body {
     /*grid-template-columns: 80px 1fr;*/
     padding: 20px;
     /*margin: 10px;*/
-    background-color: aqua;
+    background-color: #116466;
     border-radius: 20px;
+}
+.app-wrapper >div > img {
+    width: 100px;
 }

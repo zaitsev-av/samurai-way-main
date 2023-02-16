@@ -31,8 +31,11 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
                 <button>Send</button>
             </div>
             <div >
-                <Post post = {posts}/>
-                <Post post = {posts}/>
+                {posts.map((p) => {
+                    return <Post post={p}/>
+                })}
+                {/*<Post post = {posts}/>*/}
+                {/*<Post post = {posts}/>*/}
             </div>
         </div>
     );
