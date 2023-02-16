@@ -9,6 +9,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from "./component/Naviget/News/News";
 import {Music} from "./component/Naviget/Music/Music";
 import {Settings} from "./component/Naviget/Settings/Settings";
+import {v1} from "uuid";
 
 
 const menuPages = [
