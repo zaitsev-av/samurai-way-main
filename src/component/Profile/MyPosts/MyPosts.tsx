@@ -2,21 +2,14 @@ import React, {FC} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {v1} from "uuid";
+import {PostType} from "../../../redux/state";
 
-export type MyPostsProps = {
+type MyPostsProps = {
+    posts: PostType[]
     title: string
-};
+}
 
-export type PostProps = {
-    id: string
-    text: string
-};
 
-const posts: PostProps[]= [
-    {id: v1(), text: "Lorem ipsum diam massa — proin maecenas ligula gravida non pharetra, elementum tellus malesuada tellus integer. "},
-    {id: v1(), text: "Magna curabitur nec pellentesque tellus quam at sagittis commodo eu commodo metus fusce sed quisque rutrum vitae tellus bibendum justo tellus."},
-    {id: v1(), text: "Nam ultricies bibendum porta, orci eu leo quisque enim eros molestie gravida et elementum duis."},
-]
 
 export const MyPosts: FC<MyPostsProps> = (props) => {
 
@@ -31,8 +24,8 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
                 <button>Send</button>
             </div>
             <div >
-                {posts.map((p) => {
-                    return <Post post={p}/>
+                {props.posts.map((p) => {
+                    return <Post post={p} key={p.id}/>
                 })}
                 {/*<Post post = {posts}/>*/}
                 {/*<Post post = {posts}/>*/}

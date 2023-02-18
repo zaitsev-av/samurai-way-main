@@ -2,9 +2,10 @@ import React, {FC} from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import avatarFirst from '../../image/avatar/avatarFirst.png'
+import {ProfilePageType} from "../../redux/state";
 
 type ProfilePropsType = {
-    string: any
+    state: ProfilePageType
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
@@ -19,7 +20,7 @@ export const Profile: FC<ProfilePropsType> = (props) => {
                      src={avatarFirst}
                      alt="avatar"/>
             </div>
-            <MyPosts title={'My post'}/>
+            <MyPosts title={'My post'} posts={props.state.posts}/>
         </div>
     )
 }

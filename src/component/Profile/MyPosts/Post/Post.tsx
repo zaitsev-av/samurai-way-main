@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import s from "./Post.module.css";
-import {PostProps} from "../MyPosts";
 import avatarFirst from '../../../../image/avatar/avatarFirst.png'
+import {PostType} from "../../../../redux/state";
 
-type PostType = {
-    post: PostProps
+type PropsType = {
+    post: PostType
 }
 
-export const Post: FC <PostType> = (props) => {
+export const Post: FC <PropsType> = (props) => {
     return (
         <div className={s.item}>
             <img src={avatarFirst}

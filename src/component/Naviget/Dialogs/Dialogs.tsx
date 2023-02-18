@@ -1,49 +1,33 @@
 import React, {FC} from 'react';
 import s from './Dialogs.module.css'
-import {MessagesItem} from "./MessagesItem";
-import {v1} from "uuid";
+import {MessagesItem} from "./MessageItem/MessagesItem";
+import {DialogsPageType} from "../../../redux/state";
+import {DialogsItem} from "./DialogItem/DialogsItem";
 
 export type UserDialogType = {
 	id: string
 	userName: string
 }
 
-const dialogsData: UserDialogType[] = [
-	{id: v1(), userName: "Alexandr"},
-	{id: v1(), userName: "Viktoria"},
-	{id: v1(), userName: "Sister"},
-	{id: v1(), userName: "Mom"},
-	{id: v1(), userName: "Dad"},
-]
-
-const messagesData  = [
-	{id: v1(), message: "hi"},
-	{id: v1(), message: "How are you?"},
-	{id: v1(), message: "Good, thanks. And you?"},
-	{id: v1(), message: "How do you spell"},
-	{id: v1(), message: "What is learn? I'm learn React"},
-]
-
 type DialogsProps = {
-	users: UserDialogType[]
+	state: DialogsPageType
 };
+
+
 export const Dialogs: FC<DialogsProps> = (props) => {
+	// let dialogsElement =  props.users.map((u) => <MessagesItem user={u}/>)
+	// let messagesElement = props.messages.map((m) => <span key={m.id}>{m.message}</span>)
 	return (
 		<div className={s.dialogs}>
 			<div className={s.dialogsItem}>
-				{dialogsData.map((user) => {
-					return (
-						<MessagesItem user={user}/>
-					)
-				} )}
+				<DialogsItem users={props.state.dialogs}/>
 			</div>
 			<div className={s.messages}>
-				<div className={s.message}>{messagesData.map((m) => {
-					return (
-						<span key={m.id}>{m.message}</span>
-					)
-				})}</div>
-
+				<div className={s.message}>
+					<MessagesItem messages={props.state.messages}/>
+				</div>
+				<input type="text"/>
+				<button>add new message</button>
 			</div>
 		</div>
 	);
