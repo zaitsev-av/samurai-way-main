@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {MessagesItem} from "./MessageItem/MessagesItem";
 import {DialogsPageType} from "../../../redux/state";
@@ -17,6 +17,12 @@ type DialogsProps = {
 export const Dialogs: FC<DialogsProps> = (props) => {
 	// let dialogsElement =  props.users.map((u) => <MessagesItem user={u}/>)
 	// let messagesElement = props.messages.map((m) => <span key={m.id}>{m.message}</span>)
+	const newMessages = React.createRef<HTMLTextAreaElement>()
+	const addNewMessages = () => {
+		let messages = newMessages.current?.value
+		alert(messages)
+	}
+
 	return (
 		<div className={s.dialogs}>
 			<div className={s.dialogsItem}>
@@ -26,8 +32,8 @@ export const Dialogs: FC<DialogsProps> = (props) => {
 				<div className={s.message}>
 					<MessagesItem messages={props.state.messages}/>
 				</div>
-				<input type="text"/>
-				<button>add new message</button>
+				<textarea ref={newMessages}></textarea>
+				<button onClick={addNewMessages}>add new message</button>
 			</div>
 		</div>
 	);

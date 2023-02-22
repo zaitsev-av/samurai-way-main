@@ -69,6 +69,12 @@ export const data: DataPropsType = {
 			{id: v1(), message: "What is learn? I'm learn React"},
 		]
 	}
-
-
+}
+	    console.log(data.profilePage.posts)
+export const addPost = (postMessage: string) => {
+	let newPost = {
+		id: v1(),
+		text: postMessage
+	}
+	data.profilePage.posts.push(newPost)
 }

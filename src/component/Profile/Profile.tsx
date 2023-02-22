@@ -6,6 +6,7 @@ import {ProfilePageType} from "../../redux/state";
 
 type ProfilePropsType = {
     state: ProfilePageType
+    addPost:(postMessage: string)=> void
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
@@ -20,7 +21,7 @@ export const Profile: FC<ProfilePropsType> = (props) => {
                      src={avatarFirst}
                      alt="avatar"/>
             </div>
-            <MyPosts title={'My post'} posts={props.state.posts}/>
+            <MyPosts title={'My post'} posts={props.state.posts} addPost={props.addPost}/>
         </div>
     )
 }
