@@ -10,7 +10,7 @@ import {News} from "./component/Naviget/News/News";
 import {Music} from "./component/Naviget/Music/Music";
 import {Settings} from "./component/Naviget/Settings/Settings";
 import logoTwo from '../src/image/avatar/logoTwo.png'
-import {DataPropsType} from "../src/redux/state";
+import {DataPropsType} from "./redux/state";
 
 type AppProps = {
     data: DataPropsType

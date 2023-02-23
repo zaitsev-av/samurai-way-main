@@ -15,26 +15,30 @@ type MyPostsProps = {
 export const MyPosts: FC<MyPostsProps> = (props) => {
 
     const newPostElement= React.createRef<HTMLTextAreaElement>()
+
     const addPostHandler = () => {
-        let  newPost = newPostElement.current?.value
-        if (typeof newPost === "string") {
-            props.addPost(newPost)
+
+        if (newPostElement.current?.value) {
+            props.addPost(newPostElement.current.value)
+
         }
     }
     return (
 
         <div>
             <h2>{props.title}</h2>
-            <div className={s.textarea}>
-                <textarea ref={newPostElement}></textarea>
-                <button onClick={addPostHandler}>Send</button>
-            </div>
-            <div >
+
+            <div>
                 {props.posts.map((p) => {
-                    return <Post post={p} key={p.id}/>
+                    return <Post post={p}
+                                 key={p.id}/>
                 })}
                 {/*<Post post = {posts}/>*/}
                 {/*<Post post = {posts}/>*/}
+            </div>
+            <div className={s.textarea}>
+                <textarea ref={newPostElement}></textarea>
+                <button onClick={addPostHandler}>Send</button>
             </div>
         </div>
     );

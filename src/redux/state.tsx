@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {rerenderEntireTree} from "../render";
 
 export type MenuType = {
 	menuPages: Array<string>
@@ -31,7 +32,7 @@ export type DataPropsType = {
 	dialogsPage: DialogsPageType
 }
 
-export const data: DataPropsType = {
+export let data: DataPropsType = {
 	menu: {
 		menuPages: [
 			"Profile", 'Messages', 'News', 'Music', 'Settings'
@@ -77,4 +78,5 @@ export const addPost = (postMessage: string) => {
 		text: postMessage
 	}
 	data.profilePage.posts.push(newPost)
+	rerenderEntireTree(data)
 }
