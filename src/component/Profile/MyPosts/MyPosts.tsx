@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {v1} from "uuid";
@@ -8,6 +8,8 @@ type MyPostsProps = {
     posts: PostType[]
     title: string
     addPost:(postMessage: string)=> void
+    newPostText: string
+    updateNewPostText: (newPostText: string) => void
 }
 
 
@@ -17,12 +19,13 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
     const newPostElement= React.createRef<HTMLTextAreaElement>()
 
     const addPostHandler = () => {
-
-        if (newPostElement.current?.value) {
-            props.addPost(newPostElement.current.value)
-
-        }
+        if (newPostElement.current?.value) props.addPost(newPostElement.current.value)
     }
+    const onPostChange = () => {
+        if (newPostElement.current?.value) props.updateNewPostText(newPostElement.current?.value)
+    }
+
+
     return (
 
         <div>
@@ -33,11 +36,13 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
                     return <Post post={p}
                                  key={p.id}/>
                 })}
-                {/*<Post post = {posts}/>*/}
-                {/*<Post post = {posts}/>*/}
+
             </div>
             <div className={s.textarea}>
-                <textarea ref={newPostElement}></textarea>
+                <textarea ref={newPostElement}
+                value={props.newPostText}
+                onChange={onPostChange}
+                />
                 <button onClick={addPostHandler}>Send</button>
             </div>
         </div>

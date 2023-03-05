@@ -5,8 +5,9 @@ import avatarFirst from '../../image/avatar/avatarFirst.png'
 import {ProfilePageType} from "../../redux/state";
 
 type ProfilePropsType = {
-    state: ProfilePageType
+    profilePage: ProfilePageType
     addPost:(postMessage: string)=> void
+    updateNewPostText: (newPostText: string)=> void
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
@@ -21,7 +22,11 @@ export const Profile: FC<ProfilePropsType> = (props) => {
                      src={avatarFirst}
                      alt="avatar"/>
             </div>
-            <MyPosts title={'My post'} posts={props.state.posts} addPost={props.addPost}/>
+            <MyPosts title={'My post'} posts={props.profilePage.posts}
+                     addPost={props.addPost}
+                     newPostText={props.profilePage.newPostText}
+                     updateNewPostText={props.updateNewPostText}
+            />
         </div>
     )
 }

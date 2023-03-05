@@ -1,5 +1,7 @@
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = ( ) => {
+
+}
 
 export type MenuType = {
 	menuPages: Array<string>
@@ -20,10 +22,12 @@ export type MessagesPropsType = {
 
 export type ProfilePageType ={
 	posts: PostType[]
+	newPostText: string
 }
 export type DialogsPageType = {
 	dialogs: DialogPropsType[]
 	messages: MessagesPropsType[]
+	newMessageText: string
 }
 
 export type DataPropsType = {
@@ -53,6 +57,7 @@ export let data: DataPropsType = {
 				text: "Nam ultricies bibendum porta, orci eu leo quisque enim eros molestie gravida et elementum duis."
 			},
 		],
+		newPostText: 'it.kamasutra.com'
 	},
 	dialogsPage: {
 		dialogs: [
@@ -68,15 +73,36 @@ export let data: DataPropsType = {
 			{id: v1(), message: "Good, thanks. And you?"},
 			{id: v1(), message: "How do you spell"},
 			{id: v1(), message: "What is learn? I'm learn React"},
-		]
+		],
+		newMessageText: ''
 	}
 }
-	    console.log(data.profilePage.posts)
-export const addPost = (postMessage: string) => {
+console.log(data.profilePage.posts)
+export const addPost = () => {
 	let newPost = {
 		id: v1(),
-		text: postMessage
+		text: data.profilePage.newPostText
 	}
 	data.profilePage.posts.push(newPost)
-	rerenderEntireTree(data)
+	data.profilePage.newPostText = ''
+	rerenderEntireTree()
+}
+
+export const updateNewPostText = (newPostText: string) => {
+	data.profilePage.newPostText = newPostText
+	rerenderEntireTree()
+}
+
+export const addNewMassage = () => {
+	const newMessage = {id: v1(), message: data.dialogsPage.newMessageText}
+	data.dialogsPage.messages.push(newMessage)
+	data.dialogsPage.newMessageText = ''
+	rerenderEntireTree()
+}
+export const updateNewMessageText = (newMessageText: string) => {
+	data.dialogsPage.newMessageText = newMessageText
+	rerenderEntireTree()
+}
+export const subscriber = (observer: () => void) => {
+	rerenderEntireTree = observer;
 }

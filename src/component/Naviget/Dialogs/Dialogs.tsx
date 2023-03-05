@@ -11,6 +11,8 @@ export type UserDialogType = {
 
 type DialogsProps = {
 	state: DialogsPageType
+	addNewMassage:(message: string) => void
+	updateNewMessageText: (newMessageText: string)=> void
 };
 
 
@@ -20,8 +22,11 @@ export const Dialogs: FC<DialogsProps> = (props) => {
 	const newMessages = React.createRef<HTMLTextAreaElement>()
 
 	const addNewMessages = () => {
-		let messages = newMessages.current?.value
-		alert(messages)
+		if (newMessages.current?.value) props.addNewMassage(newMessages.current?.value)
+
+	}
+	const onChangeMessage = () => {
+		if (newMessages.current?.value) props.updateNewMessageText(newMessages.current?.value)
 	}
 
 	return (
@@ -33,7 +38,10 @@ export const Dialogs: FC<DialogsProps> = (props) => {
 				<div className={s.message}>
 					<MessagesItem messages={props.state.messages}/>
 				</div>
-				<textarea ref={newMessages}></textarea>
+				<textarea ref={newMessages}
+				value={props.state.newMessageText}
+						  onChange={onChangeMessage}
+				/>
 				<button onClick={addNewMessages}>add new message</button>
 			</div>
 		</div>

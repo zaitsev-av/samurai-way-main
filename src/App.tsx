@@ -10,11 +10,14 @@ import {News} from "./component/Naviget/News/News";
 import {Music} from "./component/Naviget/Music/Music";
 import {Settings} from "./component/Naviget/Settings/Settings";
 import logoTwo from '../src/image/avatar/logoTwo.png'
-import {DataPropsType} from "./redux/state";
+import { DataPropsType} from "./redux/state";
 
 type AppProps = {
     data: DataPropsType
     addPost: (postMessage: string) => void
+    updateNewPostText: (newPostText: string) => void
+    addNewMassage:(message: string) => void
+    updateNewMessageText: (newMessageText: string)=> void
 }
 
 
@@ -28,10 +31,15 @@ export const App: FC<AppProps> = (props) => {
                      friends={props.data.dialogsPage}/>
             <div className={'app-wrapper-content'}>
                 <Route path={'/messages'}
-                       render={() => <Dialogs state={props.data.dialogsPage}/>}/>
+                       render={() => <Dialogs state={props.data.dialogsPage}
+                                              addNewMassage={props.addNewMassage}
+                                              updateNewMessageText={props.updateNewMessageText}
+                       />}/>
                 <Route path={'/profile'}
-                       render={() => <Profile state={props.data.profilePage}
-                                              addPost={props.addPost}/>}/>
+                       render={() => <Profile profilePage={props.data.profilePage}
+                                              addPost={props.addPost}
+                                              updateNewPostText={props.updateNewPostText}
+                       />}/>
                 <Route path={'/news'}
                        component={News}/>
                 <Route path={'/music'}
