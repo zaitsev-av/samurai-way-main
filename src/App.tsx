@@ -10,10 +10,10 @@ import {News} from "./component/Naviget/News/News";
 import {Music} from "./component/Naviget/Music/Music";
 import {Settings} from "./component/Naviget/Settings/Settings";
 import logoTwo from '../src/image/avatar/logoTwo.png'
-import { DataPropsType} from "./redux/state";
+import { StoreType, DataPropsType} from "./redux/state";
 
 type AppProps = {
-    data: DataPropsType
+    store: StoreType
     addPost: (postMessage: string) => void
     updateNewPostText: (newPostText: string) => void
     addNewMassage:(message: string) => void
@@ -22,23 +22,24 @@ type AppProps = {
 
 
 export const App: FC<AppProps> = (props) => {
+    const data = props.store.getState()
     return (
 
         <div className='app-wrapper'>
             <Header image={logoTwo}
                     title={'Social network'}/>
-            <Naviget titlePage={props.data.menu.menuPages}
-                     friends={props.data.dialogsPage}/>
+            <Naviget titlePage={data.menu.menuPages}
+                     friends={data.dialogsPage}/>
             <div className={'app-wrapper-content'}>
                 <Route path={'/messages'}
-                       render={() => <Dialogs state={props.data.dialogsPage}
-                                              addNewMassage={props.addNewMassage}
-                                              updateNewMessageText={props.updateNewMessageText}
+                       render={() => <Dialogs state={data.dialogsPage}
+                                              addNewMassage={props.addNewMassage.bind(props.store)}
+                                              updateNewMessageText={props.updateNewMessageText.bind(props.store)}
                        />}/>
                 <Route path={'/profile'}
-                       render={() => <Profile profilePage={props.data.profilePage}
-                                              addPost={props.addPost}
-                                              updateNewPostText={props.updateNewPostText}
+                       render={() => <Profile profilePage={data.profilePage}
+                                              addPost={props.addPost.bind(props.store)}
+                                              updateNewPostText={props.updateNewPostText.bind(props.store)}
                        />}/>
                 <Route path={'/news'}
                        component={News}/>
