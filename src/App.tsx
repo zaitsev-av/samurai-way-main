@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-
 import './App.css';
 import {Header} from "./component/Header/Header";
 import {Naviget} from "./component/Naviget/Naviget";
@@ -10,14 +9,11 @@ import {News} from "./component/Naviget/News/News";
 import {Music} from "./component/Naviget/Music/Music";
 import {Settings} from "./component/Naviget/Settings/Settings";
 import logoTwo from '../src/image/avatar/logoTwo.png'
-import { StoreType, DataPropsType} from "./redux/state";
+import {StoreType, ActionsTypes} from "./redux/state";
 
 type AppProps = {
     store: StoreType
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newPostText: string) => void
-    addNewMassage:(message: string) => void
-    updateNewMessageText: (newMessageText: string)=> void
+    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -33,13 +29,12 @@ export const App: FC<AppProps> = (props) => {
             <div className={'app-wrapper-content'}>
                 <Route path={'/messages'}
                        render={() => <Dialogs state={data.dialogsPage}
-                                              addNewMassage={props.addNewMassage.bind(props.store)}
-                                              updateNewMessageText={props.updateNewMessageText.bind(props.store)}
+                                              dispatch={props.dispatch.bind(props.store)}
+
                        />}/>
                 <Route path={'/profile'}
                        render={() => <Profile profilePage={data.profilePage}
-                                              addPost={props.addPost.bind(props.store)}
-                                              updateNewPostText={props.updateNewPostText.bind(props.store)}
+                                              dispatch={props.store.dispatch.bind(props.store)}
                        />}/>
                 <Route path={'/news'}
                        component={News}/>

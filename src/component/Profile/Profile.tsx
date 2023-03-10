@@ -2,12 +2,13 @@ import React, {FC} from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import avatarFirst from '../../image/avatar/avatarFirst.png'
-import {ProfilePageType} from "../../redux/state";
+import {ActionsTypes, ProfilePageType} from "../../redux/state";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
-    addPost:(postMessage: string)=> void
-    updateNewPostText: (newPostText: string)=> void
+    // addPost:(postMessage: string)=> void
+    // updateNewPostText: (newPostText: string)=> void
+    dispatch: (action: ActionsTypes) => void
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
@@ -23,9 +24,10 @@ export const Profile: FC<ProfilePropsType> = (props) => {
                      alt="avatar"/>
             </div>
             <MyPosts title={'My post'} posts={props.profilePage.posts}
-                     addPost={props.addPost}
+                     dispatch={props.dispatch}
+                     // addPost={props.addPost}
                      newPostText={props.profilePage.newPostText}
-                     updateNewPostText={props.updateNewPostText}
+                     // updateNewPostText={props.updateNewPostText}
             />
         </div>
     )
