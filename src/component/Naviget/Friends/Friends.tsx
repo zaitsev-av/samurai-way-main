@@ -1,5 +1,5 @@
 import React from 'react';
-import {DialogPropsType} from "../../../redux/state";
+import {DialogPropsType} from "../../../redux/store";
 import people from "../../../image/avatar/people.svg";
 import s from './Friend.module.css'
 
@@ -15,7 +15,7 @@ export const Friends = (props: FriendType) => {
 
 			{props.friends.map(f => {
 				return (
-					<div className={s.friend}>
+					<div key={f.id} className={s.friend}>
 							<img src={people}
 								  alt=""/>
 						{f.userName}

@@ -1,8 +1,7 @@
-import React from "react";
-import {store} from "./redux/state";
-import {rerenderEntireTree} from "./render";
+import { store }  from "./redux/reduxStore";
+import { rerenderEntireTree } from "./render";
 
 
-store.subscriber(rerenderEntireTree)
+store.subscribe( rerenderEntireTree )
 rerenderEntireTree()
 

@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 import s from './Dialogs.module.css'
 import {MessagesItem} from "./MessageItem/MessagesItem";
-import {ActionsTypes, addNewMessageAC, DialogsPageType, upDateNewMessageAC} from "../../../redux/state";
 import {DialogsItem} from "./DialogItem/DialogsItem";
+import { addNewMessageAC, DialogsType, updateNewMessageAC } from "../../../redux/DialogsReducer";
+import { ActionType } from "../../../redux/ProfileReducer";
 
 export type UserDialogType = {
 	id: string
@@ -10,8 +11,8 @@ export type UserDialogType = {
 }
 
 type DialogsProps = {
-	state: DialogsPageType
-	dispatch: (action: ActionsTypes) => void
+	state: DialogsType
+	dispatch: (action: ActionType) => void
 };
 
 
@@ -19,12 +20,10 @@ export const Dialogs: FC<DialogsProps> = (props) => {
 	const newMessages = React.createRef<HTMLTextAreaElement>()
 
 	const addNewMessages = () => {
-		props.dispatch(addNewMessageAC())
-
+	addNewMessageAC()
 	}
 	const onChangeMessage = () => {
-		if (newMessages.current?.value) props.dispatch(
-			upDateNewMessageAC(newMessages.current?.value)) // add message
+					// updateNewMessageAC(newMessages.current.value)
 	}
 
 	return (
