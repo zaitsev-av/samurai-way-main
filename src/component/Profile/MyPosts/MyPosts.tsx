@@ -1,40 +1,36 @@
-import React, {FC} from 'react';
+import React, {FC, ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {v1} from "uuid";
-import {ActionsTypes, addPostAC, PostType, upDateNewPostAC} from "../../../redux/state";
+import { PostType} from "../../../redux/ProfileReducer";
+
 
 type MyPostsProps = {
-    posts: PostType[]
+    post: PostType[]
     title: string
-    // addPost:(postMessage: string)=> void
     newPostText: string
-    // updateNewPostText: (newPostText: string) => void
-    dispatch: (action: ActionsTypes) => void
+    upDateNewPostAC: (newPostText: string) => void
+    addPostAC: ()=> void
+    value: string
 }
 
 
 
 export const MyPosts: FC<MyPostsProps> = (props) => {
-
+    const {upDateNewPostAC, addPostAC, value} = props
     const newPostElement= React.createRef<HTMLTextAreaElement>()
-
-    const addPostHandler = () => {
-        props.dispatch(addPostAC())
-    }
-    const onPostChange = () => {
-        if (newPostElement.current?.value) props.dispatch(
-            upDateNewPostAC(newPostElement.current.value))
+    
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        upDateNewPostAC(e.currentTarget.value)
     }
 
-
+    
     return (
 
         <div>
             <h2>{props.title}</h2>
 
             <div>
-                {props.posts.map((p) => {
+                {props.post.map((p) => {
                     return <Post post={p}
                                  key={p.id}/>
                 })}
@@ -42,10 +38,10 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
             </div>
             <div className={s.textarea}>
                 <textarea ref={newPostElement}
-                value={props.newPostText}
+                value={value}
                 onChange={onPostChange}
                 />
-                <button onClick={addPostHandler}>Send</button>
+                <button onClick={addPostAC}>Send</button>
             </div>
         </div>
     );

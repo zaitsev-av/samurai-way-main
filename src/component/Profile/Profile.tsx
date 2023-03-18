@@ -2,16 +2,16 @@ import React, {FC} from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import avatarFirst from '../../image/avatar/avatarFirst.png'
-import {ActionsTypes, ProfilePageType} from "../../redux/state";
+import { ProfilePageType } from "../../redux/ProfileReducer";
 
 type ProfilePropsType = {
-    profilePage: ProfilePageType
-    // addPost:(postMessage: string)=> void
-    // updateNewPostText: (newPostText: string)=> void
-    dispatch: (action: ActionsTypes) => void
+    profile: ProfilePageType
+	upDateNewPostAC: (newPostText: string) => void
+    addPostAC: ()  => void
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
+    const {profile, upDateNewPostAC, addPostAC} = props
     return (
         <div>
 
@@ -23,11 +23,11 @@ export const Profile: FC<ProfilePropsType> = (props) => {
                      src={avatarFirst}
                      alt="avatar"/>
             </div>
-            <MyPosts title={'My post'} posts={props.profilePage.posts}
-                     dispatch={props.dispatch}
-                     // addPost={props.addPost}
-                     newPostText={props.profilePage.newPostText}
-                     // updateNewPostText={props.updateNewPostText}
+            <MyPosts title={'My post'} post={profile.post}
+                newPostText={profile.newPostText}
+                upDateNewPostAC={(newPostText: string)=> upDateNewPostAC(newPostText)}
+                     addPostAC={addPostAC}
+                     value={profile.newPostText}
             />
         </div>
     )
