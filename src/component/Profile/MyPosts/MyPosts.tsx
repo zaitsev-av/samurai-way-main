@@ -1,19 +1,17 @@
-import React, {FC, ChangeEvent} from 'react';
+import React, { FC, ChangeEvent } from 'react';
 import s from './MyPosts.module.css'
-import {Post} from "./Post/Post";
-import { PostType} from "../../../redux/ProfileReducer";
+import { Post } from "./Post/Post";
+import { PostType } from "../../../redux/profileReducer";
 
 
 type MyPostsProps = {
     post: PostType[]
     title: string
     newPostText: string
-    upDateNewPostAC: (newPostText: string) => void
-    addPostAC: ()=> void
+    upDateNewPostAC: ( newPostText: string ) => void
+    addPostAC: () => void
     value: string
 }
-
-
 
 export const MyPosts: FC<MyPostsProps> = (props) => {
     const {upDateNewPostAC, addPostAC, value} = props
@@ -22,7 +20,6 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         upDateNewPostAC(e.currentTarget.value)
     }
-
     
     return (
 

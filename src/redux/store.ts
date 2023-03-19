@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
-import { addPostAC, profileReducer, upDateNewPostAC } from "./ProfileReducer";
-import { addNewMessageAC, dialogsReducer, updateNewMessageAC } from "./DialogsReducer";
+import { addPostAC, profileReducer, upDateNewPostAC } from "./profileReducer";
+import { addNewMessageAC, dialogsReducer, updateNewMessageAC } from "./dialogsReducer";
 import { menuReducer } from "./MenuReducer";
 
 export const Menu = {

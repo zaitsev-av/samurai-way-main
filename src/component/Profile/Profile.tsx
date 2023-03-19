@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import avatarFirst from '../../image/avatar/avatarFirst.png'
-import { ProfilePageType } from "../../redux/ProfileReducer";
+import { ProfilePageType } from "../../redux/profileReducer";
 
 type ProfilePropsType = {
     profile: ProfilePageType

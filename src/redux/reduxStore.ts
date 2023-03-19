@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from "redux";
-import { profileReducer } from "./ProfileReducer";
-import { dialogsReducer } from "./DialogsReducer";
+import { profileReducer } from "./profileReducer";
+import { dialogsReducer } from "./dialogsReducer";
 
 const rootReducer = combineReducers({
 	profileReducer,

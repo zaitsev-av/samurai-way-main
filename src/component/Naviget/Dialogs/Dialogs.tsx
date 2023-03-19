@@ -1,9 +1,8 @@
-import React, {FC} from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import s from './Dialogs.module.css'
-import {MessagesItem} from "./MessageItem/MessagesItem";
-import {DialogsItem} from "./DialogItem/DialogsItem";
-import { addNewMessageAC, DialogsType, updateNewMessageAC } from "../../../redux/DialogsReducer";
-import { ActionType } from "../../../redux/ProfileReducer";
+import { MessagesItem } from "./MessageItem/MessagesItem";
+import { DialogsItem } from "./DialogItem/DialogsItem";
+import { DialogsType } from "../../../redux/dialogsReducer";
 
 export type UserDialogType = {
 	id: string
@@ -11,33 +10,35 @@ export type UserDialogType = {
 }
 
 type DialogsProps = {
-	state: DialogsType
-	dispatch: (action: ActionType) => void
+	dialog: DialogsType
+	updateNewMessageAC: ( newMessageText: string ) => void
+	addNewMessageAC: () => void
 };
 
 
 export const Dialogs: FC<DialogsProps> = (props) => {
+	const { dialog, updateNewMessageAC, addNewMessageAC } = props
 	const newMessages = React.createRef<HTMLTextAreaElement>()
 
 	const addNewMessages = () => {
 	addNewMessageAC()
 	}
-	const onChangeMessage = () => {
-					// updateNewMessageAC(newMessages.current.value)
+	const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		updateNewMessageAC(e.currentTarget.value )
 	}
 
 	return (
 		<div className={s.dialogs}>
 			<div className={s.dialogsItem}>
-				<DialogsItem users={props.state.dialogs}/>
+				<DialogsItem users={dialog.dialogs}/>
 			</div>
 			<div className={s.messages}>
 				<div className={s.message}>
-					<MessagesItem messages={props.state.messages}/>
+					<MessagesItem messages={dialog.messages}/>
 				</div >
 				<div className={s.addMessageForm}>
 					<textarea ref={newMessages}
-							  value={props.state.newMessageText}
+							  value={dialog.newMessageText}
 							  onChange={onChangeMessage}
 							  className={s.addMessageForm_txt}
 					/>
