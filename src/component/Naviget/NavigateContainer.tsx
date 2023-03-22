@@ -12,6 +12,7 @@ const mapStateToProps = ( state: AppStateType ): MapStateToPropsType => {
 	return {
 		menuPages: state.menuReducer
 	}
-}
+} // action in menuReducer any
+//диспатчить пока ничего не надо
 
 export const NavigateContainer = connect( mapStateToProps )( Navigate )

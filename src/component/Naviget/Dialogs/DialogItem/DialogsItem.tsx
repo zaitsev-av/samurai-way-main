@@ -12,7 +12,7 @@ export const DialogsItem: FC<DialogsItemProps> = (props) => {
 		<div>
 			{props.users.map(u => {
 				return (
-					<div className={s.dialogItem}>
+					<div key={u.id} className={s.dialogItem}>
 						<img src={avatarFirst} alt={'avatar from dialog'}/>
 						<NavLink to={`/messages/${u.id}/`}>{u.userName}</NavLink>
 					</div>

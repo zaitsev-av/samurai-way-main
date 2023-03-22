@@ -3,7 +3,7 @@ import { v1 } from "uuid";
 
 const initialState = {
 	menu: [
-		"Profile", 'Messages', 'News', 'Music', 'Settings'
+		"Profile", 'Messages','Users', 'News', 'Music', 'Settings'
 	],
 	friends: [
 		{ id: v1(), userName: "Alexandr" },
