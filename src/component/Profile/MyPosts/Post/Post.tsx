@@ -1,7 +1,12 @@
 import React, {FC} from 'react';
 import s from "./Post.module.css";
 import avatarFirst from '../../../../image/avatar/avatarFirst.png'
-import {PostType} from "../../../../redux/store";
+
+
+export type PostType = {
+	id: string
+	text: string
+}
 
 type PropsType = {
     post: PostType

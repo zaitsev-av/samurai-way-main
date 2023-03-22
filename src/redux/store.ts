@@ -1,56 +1,56 @@
-import { v1 } from "uuid";
-import { addPostAC, profileReducer, upDateNewPostAC } from "./profileReducer";
-import { addNewMessageAC, dialogsReducer, updateNewMessageAC } from "./dialogsReducer";
-import { menuReducer } from "./MenuReducer";
-
-export const Menu = {
-	menuPages: [
-		"Profile", 'Messages', 'News', 'Music', 'Settings'
-	]
-}
-
-export type MenuType = {
-	menuPages: Array<string>
-}
-export type PostType = {
-	id: string
-	text: string
-}
-
-export type DialogPropsType = {
-	id: string
-	userName: string
-}
-export type MessagesPropsType = {
-	id: string
-	message: string
-}
-
-export type ProfilePageType ={
-	posts: PostType[]
-	newPostText: string
-}
-export type DialogsPageType = {
-	dialogs: DialogPropsType[]
-	messages: MessagesPropsType[]
-	newMessageText: string
-}
-
-export type DataPropsType = {
-	menu: MenuType
-	profilePage: ProfilePageType
-	dialogsPage: DialogsPageType
-}
-
-export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof upDateNewPostAC> |
-	ReturnType<typeof addNewMessageAC> | ReturnType<typeof updateNewMessageAC>
-export type StoreType = {
-	_state: DataPropsType
-	rerenderEntireTree: () => void
-	subscriber: (observer: () => void) => void
-	getState: () => DataPropsType
-	dispatch: (action: ActionsTypes) => void
-}
+// import { v1 } from "uuid";
+// import { addPostAC, profileReducer, upDateNewPostAC } from "./profileReducer";
+// import { addNewMessageAC, dialogsReducer, updateNewMessageAC } from "./dialogsReducer";
+// import { menuReducer } from "./MenuReducer";
+//
+// export const Menu = {
+// 	menuPages: [
+// 		"Profile", 'Messages', 'News', 'Music', 'Settings'
+// 	]
+// }
+//
+// export type MenuType = {
+// 	menuPages: Array<string>
+// }
+// export type PostType = {
+// 	id: string
+// 	text: string
+// }
+//
+// export type DialogPropsType = {
+// 	id: string
+// 	userName: string
+// }
+// export type MessagesPropsType = {
+// 	id: string
+// 	message: string
+// }
+//
+// export type ProfilePageType ={
+// 	posts: PostType[]
+// 	newPostText: string
+// }
+// export type DialogsPageType = {
+// 	dialogs: DialogPropsType[]
+// 	messages: MessagesPropsType[]
+// 	newMessageText: string
+// }
+//
+// export type DataPropsType = {
+// 	menu: MenuType
+// 	profilePage: ProfilePageType
+// 	dialogsPage: DialogsPageType
+// }
+//
+// export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof upDateNewPostAC> |
+// 	ReturnType<typeof addNewMessageAC> | ReturnType<typeof updateNewMessageAC>
+// export type StoreType = {
+// 	_state: DataPropsType
+// 	rerenderEntireTree: () => void
+// 	subscriber: (observer: () => void) => void
+// 	getState: () => DataPropsType
+// 	dispatch: (action: ActionsTypes) => void
+// }
 
 
 

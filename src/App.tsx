@@ -10,6 +10,7 @@ import logo_transparent from '../src/image/logo_transparent.png'
 import { v1 } from "uuid";
 import { ProfileContainer } from './component/Profile/ProfileContainer';
 import { DialogsContainer } from "./component/Naviget/Dialogs/DialogsContainer";
+import { NavigateContainer } from "./component/Naviget/NavigateContainer";
 
 
 type AppProps = {
@@ -27,14 +28,7 @@ export const App: FC<AppProps> = ({store}) => {
             <Header image={ logo_transparent }
                     title={ 'Socialympics' }
             />
-            <Navigate titlePage={ [ "Profile", 'Messages', 'News', 'Music', 'Settings' ] }
-                      friends={ [
-                          { id: v1(), userName: "Alexandr" },
-                          { id: v1(), userName: "Viktoria" },
-                          { id: v1(), userName: "Sister" },
-                          { id: v1(), userName: "Mom" },
-                          { id: v1(), userName: "Dad" },
-                      ] }/>
+            <NavigateContainer/>
             <div className={ 'app-wrapper-content' }>
                 <Route path={ '/messages' }
                        render={ () => <DialogsContainer/> }/>

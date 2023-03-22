@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import s from "../MessageItem/MessageItem.module.css";
 
-// import {UserDialogType} from "./Dialogs";
-import {MessagesPropsType} from "../../../../redux/store";
-
+export type MessagesPropsType = {
+	id: string
+	message: string
+}
 
 type MessagesItemProps = {
 	messages: MessagesPropsType[]
