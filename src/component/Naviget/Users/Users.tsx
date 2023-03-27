@@ -1,5 +1,5 @@
-import React from 'react';
-import { UserType} from "../../../redux/usersReducer";
+import React, { useEffect } from 'react';
+import { UserType } from "../../../redux/usersReducer";
 import abcd from '../../../image/avatar/abcd.png'
 import s from './Users.module.css'
 import axios from "axios";
@@ -11,15 +11,18 @@ export type UsersPropsType = {
 };
 export const Users: React.FC<UsersPropsType> = ( props ) => {
 	const { users, followUser, setUser } = props
-
-	axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => setUser(response.data.items))
+	useEffect( () => {
+		axios.get( 'https://social-network.samuraijs.com/api/1.0/users' ).then(
+			response => setUser( response.data.items ) )
+	}, [ setUser ] )
+	
 	
 	return (
-		<div className={s.usersLists}>
-			{/*{usersObj.users.length === 0 ? setUser(user) : ''}*/}
-			{users.map(u => {
+		<div className={ s.usersLists }>
+			{/*{usersObj.users.length === 0 ? setUser(user) : ''}*/ }
+			{ users.map( u => {
 				const onFollowUser = () => {
-					followUser(u.id)
+					followUser( u.id )
 				}
 				return (
 					<>
