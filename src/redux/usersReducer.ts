@@ -1,47 +1,13 @@
-
-const initialState: InitialStateType = {
-	users: []
+export type UserType = {
+	name: string
+	id: string
+	follow: boolean
+	photos: {
+		small: string
+		large: string
+	}
+	status: string
 }
-
-// {
-// 	id: v1(), fullName: 'Alexander', status: 'Good job',
-// 	followed: true,
-// 	location: {
-// 	city: 'Mozyr',
-// 		country: 'Belarus'
-// }
-// },
-// {
-// 	id: v1(), fullName: 'Viktoria', status: 'Great wife',
-// 	followed: true,
-// 	location: {
-// 	city: 'Mozyr',
-// 		country: 'Belarus'
-// }
-// },
-// {
-// 	id: v1(), fullName: 'Ksenia', status: 'Daughter Alexander',
-// 	followed: true,
-// 	location: {
-// 	city: 'Mozyr',
-// 		country: 'Belarus'
-// }
-// },
-// {
-// 	id: v1(), fullName: 'Viktor', status: 'Web developer',
-// 	followed: false,
-// 	location: {
-// 	city: 'Moscow',
-// 		country: 'Russia'
-// }
-// }
-
-type InitialStateType = {
-	users: UserType[]
-}
-
-export type UsersPageType = typeof initialState
-
 
 export const followUserAC = ( userID: string ) => {
 	return {
@@ -50,18 +16,6 @@ export const followUserAC = ( userID: string ) => {
 			userID
 		}
 	} as const
-}
-
-export type UserType = {
-	id: string,
-	fullName: string,
-	avatar: string
-	status: string,
-	followed: boolean,
-	location: {
-		city: string,
-		country: string
-	}
 }
 
 export const setUserAC = ( users: UserType[] ) => {
@@ -76,20 +30,13 @@ export const setUserAC = ( users: UserType[] ) => {
 
 export type ActionType = ReturnType<typeof followUserAC> | ReturnType<typeof setUserAC>
 
-export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
+export const usersReducer = ( state: UserType[] = [], action: ActionType ): UserType[] => {
 	switch ( action.type ) {
 		case 'FOLLOW-USER': {
-			return {
-				...state, users: state.users.map( u => u.id === action.payload.userID
-					?
-					{ ...u, followed: !u.followed }
-					:
-					u
-				)
-			}
+			return state.map( el => el.id === action.payload.userID ? { ...el, follow: !el.follow } : el )
 		}
 		case 'SET-USERS': {
-			return { ...state, users: [ ...state.users, ...action.payload.users ] }
+			return [ ...state, ...action.payload.users ]
 		}
 		default :
 			return state

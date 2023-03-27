@@ -2,11 +2,11 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { AppStateType } from "../../../redux/reduxStore";
 import { Users } from "./Users";
-import { followUserAC, setUserAC, UserType, UsersPageType } from "../../../redux/usersReducer";
+import { followUserAC, setUserAC, UserType} from "../../../redux/usersReducer";
 
 
 type MapStateToPropsType = {
-	usersObj: UsersPageType
+	users: UserType[]
 }
 
 type MapDispatchToProps = {
@@ -16,7 +16,7 @@ type MapDispatchToProps = {
 
 const mapStateToProps = ( state: AppStateType ): MapStateToPropsType => {
 	return {
-		usersObj: state.usersReducer
+		users: state.usersReducer
 	}
 }
 

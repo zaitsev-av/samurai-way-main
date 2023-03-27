@@ -1,85 +1,142 @@
-import { followUserAC, setUserAC, UsersPageType, usersReducer } from "./usersReducer";
+import { followUserAC, setUserAC, usersReducer, UserType } from "./usersReducer";
 import { v1 } from "uuid";
 
 
-let initialState: UsersPageType
-let user1 = v1();
-let user2 = v1();
-let user3 = v1();
-let user4 = v1();
+let initialState: UserType[]
 
 beforeEach( () => {
-	initialState = {
-		users: [
+	initialState =
+		[
 			{
-				id: user1, fullName: 'Alexander', status: 'Good job',
-				followed: true,
-				avatar: '',
-				location: {
-					city: 'Mozyr',
-					country: 'Belarus'
-				}
+				name: "andreikastsiukovich",
+				id: "28522",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
 			},
 			{
-				id: user2, fullName: 'Viktoria', status: 'Great wife',
-				followed: true,
-				avatar: '',
-				location: {
-					city: 'Mozyr',
-					country: 'Belarus'
-				}
+				name: "ostrov2ostrov",
+				id: "28521",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
 			},
 			{
-				id: user3, fullName: 'Ksenia', status: 'Daughter Alexander',
-				followed: true,
-				avatar: '',
-				location: {
-					city: 'Mozyr',
-					country: 'Belarus'
-				}
+				name: "shcherbina",
+				id: "28520",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
 			},
 			{
-				id: user4, fullName: 'Viktor', status: 'Web developer',
-				followed: false,
-				avatar: '',
-				location: {
-					city: 'Moscow',
-					country: 'Russia'
-				}
+				name: "vita_usmanova",
+				id: "28519",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
+			},
+			{
+				name: "KateAPI",
+				id: "28518",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
+			},
+			{
+				name: "Atom0020",
+				id: "28517",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
+			},
+			{
+				name: "NikSol79",
+				id: "28516",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
+			},
+			{
+				name: "DAVwsef",
+				id: "28515",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
+			},
+			{
+				name: "fed",
+				id: "28514",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
+			},
+			{
+				name: "AlekseyIa",
+				id: "28513",
+				photos: {
+					small: "null",
+					large: "null"
+				},
+				status: "null",
+				follow: false
 			}
 		]
-	}
+	
 } )
 
 test( 'change subscription status', () => {
-	const newState = usersReducer( initialState, followUserAC(  user1 ) )
+	const newState = usersReducer( initialState, followUserAC(  "28522" ) )
 	
-	expect( newState.users[ 0 ].followed ).toBe( false )
-	expect( initialState.users[ 0 ].followed ).toBe( true )
+	expect( newState[ 0 ].follow ).toBe( true )
+	expect( initialState[ 0 ].follow ).toBe( false )
 	
 } )
 
-const newUser = {
-	users: [
-		{
-			id: v1(), fullName: 'Bob', status: 'Great worker',
-			followed: false,
-			avatar: '',
-			location: {
-				city: 'New-York',
-				country: 'USA'
-			}
-		}
-	]
-}
+const newUser = [
+	{
+	name: "ostrov2ostrov",
+	id: "28521",
+	photos: {
+		small: "null",
+		large: "null"
+	},
+	status: "null",
+	follow: false
+}]
+
 
 test( 'adding a new user', () => {
-	const newState = usersReducer( initialState, setUserAC( newUser.users ) )
+	const newState = usersReducer( initialState, setUserAC( newUser ) )
 	
-	expect( newState.users[ 4 ].followed ).toBe( false )
-	expect( newState.users[ 4 ].fullName ).toBe( 'Bob' )
-	expect( newState.users[ 4 ].location.city ).toBe( 'New-York' )
-	expect( initialState.users[ 4 ] ).not.toBe( false )
+	expect( newState.length ).toBe( 11 )
+	expect( initialState.length ).toBe( 10 )
 	
 } )
 
