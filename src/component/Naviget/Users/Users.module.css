@@ -1,6 +1,8 @@
 .usersLists {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    /*overflow: scroll;*/
 }
 .card {
     width: 190px;
