@@ -4,6 +4,10 @@
     flex-wrap: wrap;
     /*overflow: scroll;*/
 }
+.pages {
+    text-decoration: #0056ff;
+    font-weight: 600;
+}
 .card {
     width: 190px;
     height: 254px;

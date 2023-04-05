@@ -1,12 +1,10 @@
-import { followUserAC, setUserAC, usersReducer, UserType } from "./usersReducer";
-import { v1 } from "uuid";
+import { followUserAC, setUserAC, UsersPageType, usersReducer } from "./usersReducer";
 
-
-let initialState: UserType[]
+let initialState: UsersPageType
 
 beforeEach( () => {
-	initialState =
-		[
+	initialState = {
+		users: [
 			{
 				name: "andreikastsiukovich",
 				id: "28522",
@@ -107,15 +105,20 @@ beforeEach( () => {
 				status: "null",
 				follow: false
 			}
-		]
-	
+		],
+		pageSize: 20,
+		totalUsersCount: 0,
+		currentPage: 1,
+		isFetching: false,
+		followingInProgress: []
+	}
 } )
 
 test( 'change subscription status', () => {
 	const newState = usersReducer( initialState, followUserAC(  "28522" ) )
 	
-	expect( newState[ 0 ].follow ).toBe( true )
-	expect( initialState[ 0 ].follow ).toBe( false )
+	expect( newState.users[ 0 ].follow ).toBe( true )
+	expect( initialState.users[ 0 ].follow ).toBe( false )
 	
 } )
 
@@ -135,8 +138,8 @@ const newUser = [
 test( 'adding a new user', () => {
 	const newState = usersReducer( initialState, setUserAC( newUser ) )
 	
-	expect( newState.length ).toBe( 11 )
-	expect( initialState.length ).toBe( 10 )
+	expect( newState.users.length ).toBe( 11 )
+	expect( initialState.users.length ).toBe( 10 )
 	
 } )
 

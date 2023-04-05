@@ -33,12 +33,12 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
                 })}
 
             </div>
-            <div className={s.textarea}>
+            <div className={s.container}>
                 <textarea ref={newPostElement}
                 value={value}
                 onChange={onPostChange}
-                />
-                <button onClick={addPostAC}>Send</button>
+                className={s.textarea}/>
+                <button className={s.button} onClick={addPostAC}>Send</button>
             </div>
         </div>
     );
