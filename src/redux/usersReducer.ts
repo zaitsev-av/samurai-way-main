@@ -31,6 +31,7 @@ export type ActionType =
 	ReturnType<typeof followUserAC>
 	| ReturnType<typeof setUserAC>
 	| ReturnType<typeof setCurrentPageAC>
+| ReturnType<typeof setTotalUsersCountAC>
 
 export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
 	switch ( action.type ) {
@@ -41,10 +42,13 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 			}
 		}
 		case 'SET-USERS': {
-			return { ...state, users: [ ...state.users, ...action.payload.users ] }
+			return { ...state, users: action.payload.users}
 		}
 		case "SET-CURRENT-PAGE": {
 			return {...state, currentPage: action.payload.currentPage}
+		}
+		case "SET-TOTAL-USER-COUNT": {
+			return {...state, totalUsersCount: action.payload.totalCount}
 		}
 		default : {
 			return state
@@ -74,6 +78,14 @@ export const setCurrentPageAC = ( currentPage: number ) => {
 		type: "SET-CURRENT-PAGE",
 		payload: {
 			currentPage
+		}
+	} as const
+}
+export const setTotalUsersCountAC = ( totalCount: number) => {
+	return {
+		type: "SET-TOTAL-USER-COUNT",
+		payload: {
+			totalCount
 		}
 	} as const
 }
