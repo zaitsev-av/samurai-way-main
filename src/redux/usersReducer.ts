@@ -28,11 +28,9 @@ const initialState: UsersPageType = {
 }
 
 export type ActionType =
-	ReturnType<typeof followUserAC>
-	| ReturnType<typeof setUserAC>
-	| ReturnType<typeof setCurrentPageAC>
-| ReturnType<typeof setTotalUsersCountAC>
-| ReturnType<typeof toggleIsFetchingAC>
+	ReturnType<typeof followUserAC> | ReturnType<typeof setUserAC>
+	| ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC>
+	| ReturnType<typeof toggleIsFetchingAC>
 
 export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
 	switch ( action.type ) {

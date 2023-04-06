@@ -90,6 +90,7 @@ export class UsersComponent extends React.Component<UsersPropsType, UserType[]> 
 }
 
 const mapStateToProps = ( state: AppStateType ): UsersPageType => {
+	// функция mapStateToProps возвращает объект со свойствами в которых лечат части нашего стейта
 	return {
 		users: state.usersReducer.users,
 		pageSize: state.usersReducer.pageSize,
@@ -100,20 +101,25 @@ const mapStateToProps = ( state: AppStateType ): UsersPageType => {
 	}
 }
 
-const mapDispatchToProps = ( dispatch: Dispatch ): MapDispatchToProps => {
-	return {
-		followUser: ( userID: string ) => dispatch( followUserAC( userID ) ),
-		setUser: (users:UserType[]) => dispatch( setUserAC(users) ),
-		setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
-		setTotalUsersCount: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount)),
-		toggleIsFetching: ( newIsFetching: boolean ) => dispatch( toggleIsFetchingAC( newIsFetching ) )
-	}
-}
-export const UsersContainer = connect( mapStateToProps, mapDispatchToProps )( UsersComponent )
-
-
-
-
+// const mapDispatchToProps = ( dispatch: Dispatch ): MapDispatchToProps => { // эта функция которая возвращает объкт со свойствами
+// 	// в которых лежат колбеки которые диспатчат возврощаемые нашими экшенкриэйтор
+// 	return {
+// 		followUser: ( userID: string ) => dispatch( followUserAC( userID ) ),
+// 		setUser: (users:UserType[]) => dispatch( setUserAC(users) ),
+// 		setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
+// 		setTotalUsersCount: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount)),
+// 		toggleIsFetching: ( newIsFetching: boolean ) => dispatch( toggleIsFetchingAC( newIsFetching ) )
+// 	}
+// }
+export const UsersContainer = connect( mapStateToProps, {
+	followUser: followUserAC,
+	setUser: setUserAC,
+	setCurrentPage: setCurrentPageAC,
+	setTotalUsersCount: setTotalUsersCountAC,
+	toggleIsFetching: toggleIsFetchingAC
+} )( UsersComponent )
+//здесь ф-ция connect можно сказать обьеденяет наши два обьекта из mapDispatchToProps и mapStateToProps
+// и делает из них обьект props который приходит в нашу презентационную компоненту
 
 
 // export const Users: React.FC<UsersPropsType> = ( props ) => {
