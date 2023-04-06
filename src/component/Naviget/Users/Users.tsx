@@ -9,6 +9,7 @@ export type UsersPropsType = {
 	currentPage: number
 	onPageChanged: ( pageNumber: number ) => void
 	followUser: ( userID: string ) => void
+
 };
 export const Users: React.FC<UsersPropsType> = ( props ) => {
 	const { users, onPageChanged, pages, currentPage, followUser } = props
