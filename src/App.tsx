@@ -33,7 +33,7 @@ export const App: FC<AppProps> = ({store}) => {
                        render={ () => <UsersContainer/> }/>
                 <Route path={ '/messages' }
                        render={ () => <DialogsContainer/> }/>
-                <Route path={ '/profile' }
+                <Route path={ '/profile/:userID?' }
                        render={ () => <ProfileContainer/> }/>
                 <Route path={ '/news' }
                        component={ News }/>

@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import { AppStateType } from "../../../redux/reduxStore";
 import React from 'react';
 import { toggleIsFetchingAC, UserType } from "../../../redux/usersReducer";
@@ -28,13 +27,6 @@ export type UsersPropsType = {
 	toggleIsFetching: ( newIsFetching: boolean ) => void
 };
 
-type MapDispatchToProps = {
-	followUser: (  userID: string ) => void
-	setUser: (users: UserType[]) => void
-	setCurrentPage: (currentPage: number) => void
-	setTotalUsersCount: ( totalCount: number ) => void
-	toggleIsFetching: ( newIsFetching: boolean ) => void
-}
 // создание классовой компоненты, слово extends обязательно!
 export class UsersComponent extends React.Component<UsersPropsType, UserType[]> { //наследование классовой компоненты у реакта
 	componentDidMount() {

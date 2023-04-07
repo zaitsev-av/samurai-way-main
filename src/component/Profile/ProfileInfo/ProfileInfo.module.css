@@ -1,0 +1,14 @@
+
+.wrapperInfo {
+    display: flex;
+    align-items: center;
+}
+.info {
+    color: white;
+    font-size: 18px;
+}
+
+.avatar {
+    padding: 1rem;
+    border-radius: 50px;
+}

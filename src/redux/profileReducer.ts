@@ -6,7 +6,54 @@ export type PostType = {
 	text: string
 }
 
+type ContactsType = {
+	facebook: string | null
+	website: string | null
+	vk: string | null
+	twitter: string | null
+	instagram: string | null
+	youtube: string | null
+	github: string | null
+	mainLink: string | null
+}
+type PhotosType = {
+	small: string
+	large: string
+}
+
+export type ResponseProfileType = {
+	aboutMe: string
+	contacts: ContactsType
+	lookingForAJob: boolean
+	lookingForAJobDescription: string
+	fullName: string
+	userId: string
+	photos: PhotosType
+}
+
+
 const initialState = {
+	profile: {
+		aboutMe: "",
+		contacts: {
+			facebook: null,
+			website: null,
+			vk: null,
+			twitter: null,
+			instagram: null,
+			youtube: null,
+			github: null,
+			mainLink: null
+		},
+		lookingForAJob: true,
+		lookingForAJobDescription: "",
+		fullName: "",
+		userId: '2',
+		photos: {
+			small: "",
+			large: ""
+		}
+	} as ResponseProfileType,
 	post: [
 		{
 			id: v1(),
@@ -37,7 +84,15 @@ export const upDateNewPostAC = (newPostText: string) => {
 	}as const
 }
 
-export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof upDateNewPostAC>
+export const setUserProfileAC = ( profile: ResponseProfileType) => {
+return {
+	type: 'SET-USER-PROFILE',
+	payload: {
+		profile
+	}
+} as const
+}
+export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof upDateNewPostAC> | ReturnType<typeof setUserProfileAC>
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
 	switch (action.type) {
@@ -47,6 +102,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 		case 'ADD-POST':{
 			const newPost = {id: v1(), text: state.newPostText }
 			return state = {...state, post: [...state.post, newPost], newPostText: ''}
+		}
+		case "SET-USER-PROFILE": {
+			return {...state, profile: action.payload.profile }
 		}
 		default :
 			return state
