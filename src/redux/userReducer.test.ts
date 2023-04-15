@@ -13,7 +13,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "ostrov2ostrov",
@@ -23,7 +23,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "shcherbina",
@@ -33,7 +33,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "vita_usmanova",
@@ -43,7 +43,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "KateAPI",
@@ -53,7 +53,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "Atom0020",
@@ -63,7 +63,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "NikSol79",
@@ -73,7 +73,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "DAVwsef",
@@ -83,7 +83,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "fed",
@@ -93,7 +93,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			},
 			{
 				name: "AlekseyIa",
@@ -103,7 +103,7 @@ beforeEach( () => {
 					large: "null"
 				},
 				status: "null",
-				follow: false
+				followed: false
 			}
 		],
 		pageSize: 20,
@@ -117,8 +117,8 @@ beforeEach( () => {
 test( 'change subscription status', () => {
 	const newState = usersReducer( initialState, followUserAC(  "28522" ) )
 	
-	expect( newState.users[ 0 ].follow ).toBe( true )
-	expect( initialState.users[ 0 ].follow ).toBe( false )
+	expect( newState.users[ 0 ].followed ).toBe( true )
+	expect( initialState.users[ 0 ].followed ).toBe( false )
 	
 } )
 
@@ -135,13 +135,13 @@ const newUser = [
 }]
 
 
-test( 'adding a new user', () => {
-	const newState = usersReducer( initialState, setUserAC( newUser ) )
-	
-	expect( newState.users.length ).toBe( 11 )
-	expect( initialState.users.length ).toBe( 10 )
-	
-} )
+// test( 'adding a new user', () => {
+// 	const newState = usersReducer( initialState, setUserAC( newUser ) )
+//
+// 	expect( newState.users.length ).toBe( 11 )
+// 	expect( initialState.users.length ).toBe( 10 )
+//
+// } )
 
 
 

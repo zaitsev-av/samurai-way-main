@@ -1,9 +1,9 @@
 import React from 'react';
 import s from "./Users.module.css";
 import abcd from "../../../image/avatar/abcd.png";
-import { UserType } from "../../../redux/usersReducer";
+import { followUserAC, unfollowUserAC, UserType } from "../../../redux/usersReducer";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { usersAPI } from "../../../api/API";
 
 export type UsersPropsType = {
 	users: UserType[]
@@ -17,7 +17,7 @@ export type UsersPropsType = {
 export const Users: React.FC<UsersPropsType> = ( props ) => {
 	const { users, onPageChanged, pages, currentPage, followUser, unfollowUser } = props
 	
-	
+	    console.log(users)
 	return (
 			<div >
 				<div>
@@ -32,33 +32,21 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 				</div >
 				<div className={ s.usersLists }>
 					{ users.map( u => {
-						// const onFollowUser = () => {
-						// 	 u.follow ?
-						// 		 axios.delete( `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,  {
-						// 				 withCredentials: true,
-						// 				 headers: {
-						// 					 'API-KEY':'2982f94d-1667-4567-ac00-6b85d50bebfa' }
-						// 			 } )
-						// 			 .then( response => {
-						// 				 if ( response.data.resultCode === 0 ) {
-						// 					 unfollowUser( u.id )
-						// 				 }
-						// 			 })
-						//
-						//
-						// 	:
-						// 		 axios.post( `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, null, {
-						// 				 withCredentials: true,
-						// 				 headers: {
-						// 					 'API-KEY':'2982f94d-1667-4567-ac00-6b85d50bebfa' }
-						//
-						// 			 } )
-						// 			 .then( response => {
-						// 				 if ( response.data.resultCode === 0 ) {
-						// 					 followUser( u.id )
-						// 				 }
-						// 			 })
-						// 	}
+						const onFollowUser = () => {
+							    console.log(u.id)
+							    console.log(u.followed)
+								usersAPI.follow(u.id).then(data => {
+									data === 0 && followUser( u.id )
+								})
+							// u.followed ?
+							// 	usersAPI.unfollow( u.id ).then( data => {
+							// 		data === 0 && unfollowUser( u.id )
+							// 	} )
+							// 	:
+							// 	usersAPI.follow(u.id).then(data => {
+							// 		data === 0 && followUser( u.id )
+							// 	})
+						}
 						
 						
 						return (
@@ -75,38 +63,19 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 											<span>{ u.name }</span>
 											<p className={ s.text }>{ u.status }</p>
 										</div>
-										{ u.follow
-											? <button onClick={ () => {
-												axios.delete(
-														`https://social-network.samuraijs.com/api/1.0/follow/${ u.id }`,
-														{
-															withCredentials: true,
-															headers: {
-																'API-KEY': '2982f94d-1667-4567-ac00-6b85d50bebfa'
-															}
-														} )
-													.then( response => {
-														response.data.resultCode === 0 && unfollowUser( u.id )
-													} )
-											} }>{ u.follow ? 'Unfollow' : 'Follow' }</button>
-											: <button onClick={ () => {
-												console.log( u )
-												axios.post(
-														`https://social-network.samuraijs.com/api/1.0/follow/${ u.id }`,
-														{}, {
-															withCredentials: true,
-															headers: {
-																'API-KEY': '2982f94d-1667-4567-ac00-6b85d50bebfa'
-															}
-														} )
-													.then( response => {
-														response.data.resultCode === 0 && followUser( u.id )
-														console.log( u.name )
-														console.log( u.follow )
-													} )
-											} }>{ u.follow ? 'Follow' : 'Unfollow' }</button>
+										{ u.followed
+											?
+											<button onClick={ ()=> {
+												    console.log(typeof u.id)
+												    console.log(u.followed)
+												usersAPI.follow(u.id).then(data => {
+													data === 0 && unfollowUserAC( u.id.toString()  )
+												})
+											}}>Unfollow</button>
+											:
+											<button onClick={ ()=>  followUserAC(  u.id.toString())}>Follow</button>
 										}
-										{/*<button >{ u.follow ? 'Follow' : 'Unfollow' }</button>*/ }
+										
 									</div>
 								</div>
 							

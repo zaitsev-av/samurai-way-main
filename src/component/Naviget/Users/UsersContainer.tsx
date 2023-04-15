@@ -12,6 +12,7 @@ import {
 	UsersPageType,
 } from "../../../redux/usersReducer";
 import { Preloader } from "../../common/Loader/Preloader";
+import { usersAPI } from "../../../api/API";
 
 
 export type UsersPropsType = {
@@ -33,39 +34,34 @@ export class UsersComponent extends React.Component<UsersPropsType, UserType[]> 
 	componentDidMount() {
 		this.props.toggleIsFetching(true) // при запросе на сервер во время
 		// ожидания ответа включается лоадер
-		axios.get( `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true} )
-			.then( response => {
-				this.props.setUser( response.data.items )
-				this.props.setTotalUsersCount( response.data.totalCount )
+			usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then (data => {
+				this.props.setUser( data.items )
+				this.props.setTotalUsersCount( data.totalCount )
+				this.props.toggleIsFetching(false)//убирает лоадер с страницы
 			})
-			.catch((response)=> {
-				    console.log('new error', response)
-			} )
-			.finally(()=> {
-				this.props.toggleIsFetching(false)
-			}) // finally убирает лоадер с страницы
-	}// запрос на сервер за юзерами
+		}// запрос на сервер за юзерами
+		
 	
 	onPageChanged = (pageNumber: number) => {
 		this.props.setCurrentPage(pageNumber)
 		this.props.toggleIsFetching(true)
-		axios.get( `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true} )
-			.then( response => this.props.setUser( response.data.items ))
-			.finally(()=> {
+		usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+				this.props.setUser( data.items )
 				this.props.toggleIsFetching(false)
 			})
+			
 	}
 	render() {
 		
-		console.log( this.props.totalUsersCount )
-		console.log( this.props.pageSize )
+		// console.log( this.props.totalUsersCount )
+		// console.log( this.props.pageSize )
 		let pageCount = Math.ceil( this.props.totalUsersCount / this.props.pageSize )
 		let pages = []
 		
 		for ( let i = 1; i <= pageCount; i++ ) {
 			pages.push( i )
 		}
-		console.log( pages )
+		// console.log( pages )
 		return (
 			<>
 				{ this.props.isFetching ? <Preloader/> :

@@ -1,7 +1,7 @@
 export type UserType = {
 	name: string
 	id: string
-	follow: boolean
+	followed: boolean
 	photos: {
 		small: string
 		large: string
@@ -33,17 +33,20 @@ export type ActionType =
 	| ReturnType<typeof toggleIsFetchingAC>
 
 export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
+	debugger
 	switch ( action.type ) {
 		case 'FOLLOW-USER': {
+			debugger
 			return {
 				...state,
-				users: state.users.map( el => el.id === action.payload.userID ? { ...el, follow: true } : el )
+				users: state.users.map( el => el.id === action.payload.userID ? { ...el, followed: true } : el )
 			}
 		}
 		case 'UNFOLLOW-USER': {
+			debugger
 			return {
 				...state,
-				users: state.users.map( el => el.id === action.payload.userID ? { ...el, follow: false } : el )
+				users: state.users.map( el => el.id === action.payload.userID ? { ...el, followed: false } : el )
 			}
 		}
 		case 'SET-USERS': {
@@ -65,6 +68,7 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 }
 
 export const followUserAC = ( userID: string ) => {
+	debugger
 	return {
 		type: 'FOLLOW-USER',
 		payload: {
@@ -74,6 +78,7 @@ export const followUserAC = ( userID: string ) => {
 }
 
 export const unfollowUserAC = ( userID: string ) => {
+	debugger
 	return {
 		type: 'UNFOLLOW-USER',
 		payload: {
