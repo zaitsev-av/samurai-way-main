@@ -28,7 +28,7 @@ const initialState: UsersPageType = {
 }
 
 export type ActionType =
-	ReturnType<typeof followUserAC> | ReturnType<typeof setUserAC>
+	ReturnType<typeof followUserAC> | ReturnType<typeof unfollowUserAC> | ReturnType<typeof setUserAC>
 	| ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC>
 	| ReturnType<typeof toggleIsFetchingAC>
 
@@ -37,7 +37,13 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 		case 'FOLLOW-USER': {
 			return {
 				...state,
-				users: state.users.map( el => el.id === action.payload.userID ? { ...el, follow: !el.follow } : el )
+				users: state.users.map( el => el.id === action.payload.userID ? { ...el, follow: true } : el )
+			}
+		}
+		case 'UNFOLLOW-USER': {
+			return {
+				...state,
+				users: state.users.map( el => el.id === action.payload.userID ? { ...el, follow: false } : el )
 			}
 		}
 		case 'SET-USERS': {
@@ -61,6 +67,15 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 export const followUserAC = ( userID: string ) => {
 	return {
 		type: 'FOLLOW-USER',
+		payload: {
+			userID
+		}
+	} as const
+}
+
+export const unfollowUserAC = ( userID: string ) => {
+	return {
+		type: 'UNFOLLOW-USER',
 		payload: {
 			userID
 		}

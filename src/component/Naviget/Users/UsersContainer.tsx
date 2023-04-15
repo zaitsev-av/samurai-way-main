@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/reduxStore";
 import React from 'react';
-import { toggleIsFetchingAC, UserType } from "../../../redux/usersReducer";
+import { toggleIsFetchingAC, unfollowUserAC, UserType } from "../../../redux/usersReducer";
 import axios from "axios";
 import { Users } from "./Users";
 import {
@@ -21,6 +21,7 @@ export type UsersPropsType = {
 	pageSize: number
 	isFetching: boolean
 	followUser: ( userID: string ) => void
+	unfollowUser: ( userID: string ) => void
 	setUser: ( users: UserType[] ) => void
 	setCurrentPage: (currentPage: number) => void
 	setTotalUsersCount: (totalCount: number) => void
@@ -32,7 +33,7 @@ export class UsersComponent extends React.Component<UsersPropsType, UserType[]> 
 	componentDidMount() {
 		this.props.toggleIsFetching(true) // при запросе на сервер во время
 		// ожидания ответа включается лоадер
-		axios.get( `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}` )
+		axios.get( `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true} )
 			.then( response => {
 				this.props.setUser( response.data.items )
 				this.props.setTotalUsersCount( response.data.totalCount )
@@ -48,7 +49,7 @@ export class UsersComponent extends React.Component<UsersPropsType, UserType[]> 
 	onPageChanged = (pageNumber: number) => {
 		this.props.setCurrentPage(pageNumber)
 		this.props.toggleIsFetching(true)
-		axios.get( `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}` )
+		axios.get( `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true} )
 			.then( response => this.props.setUser( response.data.items ))
 			.finally(()=> {
 				this.props.toggleIsFetching(false)
@@ -73,7 +74,8 @@ export class UsersComponent extends React.Component<UsersPropsType, UserType[]> 
 						pages={ pages }
 						currentPage={ this.props.currentPage }
 						onPageChanged={ this.onPageChanged }
-						followUser={ this.props.followUser }/>
+						followUser={ this.props.followUser }
+						unfollowUser={ this.props.unfollowUser }/>
 				}
 			</>
 		
@@ -105,6 +107,7 @@ const mapStateToProps = ( state: AppStateType ): UsersPageType => {
 // }
 export const UsersContainer = connect( mapStateToProps, {
 	followUser: followUserAC,
+	unfollowUser: unfollowUserAC,
 	setUser: setUserAC,
 	setCurrentPage: setCurrentPageAC,
 	setTotalUsersCount: setTotalUsersCountAC,
