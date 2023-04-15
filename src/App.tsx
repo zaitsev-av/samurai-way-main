@@ -10,6 +10,7 @@ import { ProfileContainer } from './component/Profile/ProfileContainer';
 import { DialogsContainer } from "./component/Naviget/Dialogs/DialogsContainer";
 import { NavigateContainer } from "./component/Naviget/NavigateContainer";
 import { UsersContainer } from "./component/Naviget/Users/UsersContainer";
+import { FormLogin } from "./component/common/FormLogin/FormLogin";
 
 
 type AppProps = {
@@ -29,6 +30,8 @@ export const App: FC<AppProps> = ({store}) => {
             />
             <NavigateContainer/>
             <div className={ 'app-wrapper-content' }>
+                <Route path={ '/login' }
+                       render={ () => <FormLogin/> }/>
                 <Route path={ '/Users' }
                        render={ () => <UsersContainer/> }/>
                 <Route path={ '/messages' }
