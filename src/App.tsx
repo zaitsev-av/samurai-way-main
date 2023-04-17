@@ -9,8 +9,9 @@ import logo_transparent from '../src/image/logo_transparent.png'
 import { ProfileContainer } from './component/Profile/ProfileContainer';
 import { DialogsContainer } from "./component/Naviget/Dialogs/DialogsContainer";
 import { NavigateContainer } from "./component/Naviget/NavigateContainer";
-import { UsersContainer } from "./component/Naviget/Users/UsersContainer";
+
 import { FormLogin } from "./component/common/FormLogin/FormLogin";
+import UsersContainer from "./component/Naviget/Users/UsersContainer";
 
 
 type AppProps = {
@@ -32,8 +33,8 @@ export const App: FC<AppProps> = ({store}) => {
             <div className={ 'app-wrapper-content' }>
                 <Route path={ '/login' }
                        render={ () => <FormLogin/> }/>
-                <Route path={ '/Users' }
-                       render={ () => <UsersContainer/> }/>
+                <Route path={ '/users' }
+                       render={ () => <UsersContainer  /> }/>
                 <Route path={ '/messages' }
                        render={ () => <DialogsContainer/> }/>
                 <Route path={ '/profile/:userID?' }

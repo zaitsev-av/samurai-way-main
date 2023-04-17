@@ -7,7 +7,7 @@ beforeEach( () => {
 		users: [
 			{
 				name: "andreikastsiukovich",
-				id: "28522",
+				id: 28522,
 				photos: {
 					small: "null",
 					large: "null"
@@ -17,7 +17,7 @@ beforeEach( () => {
 			},
 			{
 				name: "ostrov2ostrov",
-				id: "28521",
+				id: 28521,
 				photos: {
 					small: "null",
 					large: "null"
@@ -27,7 +27,7 @@ beforeEach( () => {
 			},
 			{
 				name: "shcherbina",
-				id: "28520",
+				id: 28520,
 				photos: {
 					small: "null",
 					large: "null"
@@ -37,7 +37,7 @@ beforeEach( () => {
 			},
 			{
 				name: "vita_usmanova",
-				id: "28519",
+				id: 28519,
 				photos: {
 					small: "null",
 					large: "null"
@@ -47,7 +47,7 @@ beforeEach( () => {
 			},
 			{
 				name: "KateAPI",
-				id: "28518",
+				id: 28518,
 				photos: {
 					small: "null",
 					large: "null"
@@ -57,7 +57,7 @@ beforeEach( () => {
 			},
 			{
 				name: "Atom0020",
-				id: "28517",
+				id: 28517,
 				photos: {
 					small: "null",
 					large: "null"
@@ -67,7 +67,7 @@ beforeEach( () => {
 			},
 			{
 				name: "NikSol79",
-				id: "28516",
+				id: 28516,
 				photos: {
 					small: "null",
 					large: "null"
@@ -77,7 +77,7 @@ beforeEach( () => {
 			},
 			{
 				name: "DAVwsef",
-				id: "28515",
+				id: 28515,
 				photos: {
 					small: "null",
 					large: "null"
@@ -87,7 +87,7 @@ beforeEach( () => {
 			},
 			{
 				name: "fed",
-				id: "28514",
+				id: 28514,
 				photos: {
 					small: "null",
 					large: "null"
@@ -97,7 +97,7 @@ beforeEach( () => {
 			},
 			{
 				name: "AlekseyIa",
-				id: "28513",
+				id: 28513,
 				photos: {
 					small: "null",
 					large: "null"
@@ -110,12 +110,11 @@ beforeEach( () => {
 		totalUsersCount: 0,
 		currentPage: 1,
 		isFetching: false,
-		followingInProgress: []
-	}
+		followingInProgress: []}
 } )
 
 test( 'change subscription status', () => {
-	const newState = usersReducer( initialState, followUserAC(  "28522" ) )
+	const newState = usersReducer( initialState, followUserAC(  28522 ) )
 	
 	expect( newState.users[ 0 ].followed ).toBe( true )
 	expect( initialState.users[ 0 ].followed ).toBe( false )
@@ -125,7 +124,7 @@ test( 'change subscription status', () => {
 const newUser = [
 	{
 	name: "ostrov2ostrov",
-	id: "28521",
+	id: 28521,
 	photos: {
 		small: "null",
 		large: "null"

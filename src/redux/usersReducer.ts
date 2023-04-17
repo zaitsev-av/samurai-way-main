@@ -1,6 +1,6 @@
 export type UserType = {
 	name: string
-	id: string
+	id: number
 	followed: boolean
 	photos: {
 		small: string
@@ -15,7 +15,7 @@ export type UsersPageType = {
 	totalUsersCount: number
 	currentPage: number
 	isFetching: boolean
-	followingInProgress: string[]
+	followingInProgress: number []
 }
 
 const initialState: UsersPageType = {
@@ -27,28 +27,13 @@ const initialState: UsersPageType = {
 	followingInProgress: []
 }
 
-export type ActionType =
-	ReturnType<typeof followUserAC> | ReturnType<typeof unfollowUserAC> | ReturnType<typeof setUserAC>
+export type ActionType = ReturnType<typeof followUserAC> | ReturnType<typeof unfollowUserAC> | ReturnType<typeof setUserAC>
 	| ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC>
-	| ReturnType<typeof toggleIsFetchingAC>
+	| ReturnType<typeof toggleIsFetchingAC>| ReturnType<typeof toggleFollowingProgressAC>
 
 export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
-	debugger
+	    console.log(action.type)
 	switch ( action.type ) {
-		case 'FOLLOW-USER': {
-			debugger
-			return {
-				...state,
-				users: state.users.map( el => el.id === action.payload.userID ? { ...el, followed: true } : el )
-			}
-		}
-		case 'UNFOLLOW-USER': {
-			debugger
-			return {
-				...state,
-				users: state.users.map( el => el.id === action.payload.userID ? { ...el, followed: false } : el )
-			}
-		}
 		case 'SET-USERS': {
 			return { ...state, users: action.payload.users}
 		}
@@ -61,14 +46,28 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 		case "SET-TOGGLE-IS-FETCHING": {
 			return {...state, isFetching: action.preload.newIsFetching}
 		}
+		case "TOGGLE-IN-FOLLOWING-PROGRESS": {
+			return action.progress ? {...state, followingInProgress: [...state.followingInProgress, action.id]}
+				: {...state, followingInProgress: state.followingInProgress.filter((id) => id !== action.id)}
+		}
+		case "FOLLOW-USER": {
+			return {...state, users: state.users.map(u => u.id === action.payload.userID
+					?
+					{...u, followed: true}: u)}
+		}
+		case "UNFOLLOW-USER": {
+			return {...state, users: state.users.map(u => u.id === action.payload.userID
+					?
+					{...u, followed: false}: u)}
+		}
 		default : {
 			return state
 		}
 	}
 }
 
-export const followUserAC = ( userID: string ) => {
-	debugger
+export const followUserAC = ( userID: number ) => {
+	    console.log('followUserAC')
 	return {
 		type: 'FOLLOW-USER',
 		payload: {
@@ -77,8 +76,8 @@ export const followUserAC = ( userID: string ) => {
 	} as const
 }
 
-export const unfollowUserAC = ( userID: string ) => {
-	debugger
+export const unfollowUserAC = ( userID: number ) => {
+	console.log('unfollowUserAC')
 	return {
 		type: 'UNFOLLOW-USER',
 		payload: {
@@ -117,6 +116,13 @@ export const toggleIsFetchingAC = (newIsFetching: boolean) => {
 		preload: {
 			newIsFetching
 		}
+	} as const
+}
+
+export const toggleFollowingProgressAC = ( progress: boolean, id: number ) => {
+	return {
+		type: "TOGGLE-IN-FOLLOWING-PROGRESS",
+		progress, id
 	} as const
 }
 

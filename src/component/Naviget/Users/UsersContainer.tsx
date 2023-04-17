@@ -1,15 +1,13 @@
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/reduxStore";
 import React from 'react';
-import { toggleIsFetchingAC, unfollowUserAC, UserType } from "../../../redux/usersReducer";
-import axios from "axios";
+import { toggleFollowingProgressAC, toggleIsFetchingAC, unfollowUserAC, UserType } from "../../../redux/usersReducer";
 import { Users } from "./Users";
 import {
 	followUserAC,
 	setCurrentPageAC,
 	setTotalUsersCountAC,
 	setUserAC,
-	UsersPageType,
 } from "../../../redux/usersReducer";
 import { Preloader } from "../../common/Loader/Preloader";
 import { usersAPI } from "../../../api/API";
@@ -21,16 +19,18 @@ export type UsersPropsType = {
 	totalUsersCount: number
 	pageSize: number
 	isFetching: boolean
-	followUser: ( userID: string ) => void
-	unfollowUser: ( userID: string ) => void
+	followingInProgress: number[]
+	followUser: ( userID: number ) => void
+	unfollowUser: ( userID: number ) => void
 	setUser: ( users: UserType[] ) => void
 	setCurrentPage: (currentPage: number) => void
 	setTotalUsersCount: (totalCount: number) => void
 	toggleIsFetching: ( newIsFetching: boolean ) => void
+	toggleFollowingProgress: ( progress: boolean, userID: number ) => void
 };
 
 // создание классовой компоненты, слово extends обязательно!
-export class UsersComponent extends React.Component<UsersPropsType, UserType[]> { //наследование классовой компоненты у реакта
+class UsersContainer extends React.Component<UsersPropsType, UserType[]> { //наследование классовой компоненты у реакта
 	componentDidMount() {
 		this.props.toggleIsFetching(true) // при запросе на сервер во время
 		// ожидания ответа включается лоадер
@@ -53,8 +53,6 @@ export class UsersComponent extends React.Component<UsersPropsType, UserType[]> 
 	}
 	render() {
 		
-		// console.log( this.props.totalUsersCount )
-		// console.log( this.props.pageSize )
 		let pageCount = Math.ceil( this.props.totalUsersCount / this.props.pageSize )
 		let pages = []
 		
@@ -71,47 +69,39 @@ export class UsersComponent extends React.Component<UsersPropsType, UserType[]> 
 						currentPage={ this.props.currentPage }
 						onPageChanged={ this.onPageChanged }
 						followUser={ this.props.followUser }
-						unfollowUser={ this.props.unfollowUser }/>
+						unfollowUser={ this.props.unfollowUser }
+						toggleFollowingProgress={this.props.toggleFollowingProgress}
+						followingInProgress={this.props.followingInProgress}
+					/>
+					
 				}
 			</>
 		
 		)
 	}
 }
-
-const mapStateToProps = ( state: AppStateType ): UsersPageType => {
-	// функция mapStateToProps возвращает объект со свойствами в которых лечат части нашего стейта
-	return {
-		users: state.usersReducer.users,
-		pageSize: state.usersReducer.pageSize,
-		totalUsersCount: state.usersReducer.totalUsersCount,
-		currentPage: state.usersReducer.currentPage,
-		isFetching: state.usersReducer.isFetching,
-		followingInProgress: state.usersReducer.followingInProgress
-	}
-}
-
-// const mapDispatchToProps = ( dispatch: Dispatch ): MapDispatchToProps => { // эта функция которая возвращает объкт со свойствами
-// 	// в которых лежат колбеки которые диспатчат возврощаемые нашими экшенкриэйтор
-// 	return {
-// 		followUser: ( userID: string ) => dispatch( followUserAC( userID ) ),
-// 		setUser: (users:UserType[]) => dispatch( setUserAC(users) ),
-// 		setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
-// 		setTotalUsersCount: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount)),
-// 		toggleIsFetching: ( newIsFetching: boolean ) => dispatch( toggleIsFetchingAC( newIsFetching ) )
-// 	}
-// }
-export const UsersContainer = connect( mapStateToProps, {
+const mapStateToProps = (state: AppStateType) => ({
+	users: state.usersReducer.users,
+	currentPage: state.usersReducer.currentPage,
+	totalUsersCount: state.usersReducer.totalUsersCount,
+	pageSize: state.usersReducer.pageSize,
+	isFetching: state.usersReducer.isFetching,
+	followingInProgress: state.usersReducer.followingInProgress
+});
+const mapDispatchToProps = {
 	followUser: followUserAC,
 	unfollowUser: unfollowUserAC,
 	setUser: setUserAC,
 	setCurrentPage: setCurrentPageAC,
 	setTotalUsersCount: setTotalUsersCountAC,
-	toggleIsFetching: toggleIsFetchingAC
-} )( UsersComponent )
-//здесь ф-ция connect можно сказать обьеденяет наши два обьекта из mapDispatchToProps и mapStateToProps
-// и делает из них обьект props который приходит в нашу презентационную компоненту
+	toggleIsFetching: toggleIsFetchingAC,
+	toggleFollowingProgress: toggleFollowingProgressAC,
+};
 
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UsersContainer);
 
 // export const Users: React.FC<UsersPropsType> = ( props ) => {
 // 	const { users, followUser, setUser } = props

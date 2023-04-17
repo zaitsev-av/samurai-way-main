@@ -10,10 +10,10 @@ const rootReducer = combineReducers({
 	dialogsReducer,
 	menuReducer,
 	usersReducer,
-	authData: authReducer
+	authReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
-
+export type DispatchType = typeof store.dispatch
 export const store = createStore(rootReducer)
 
