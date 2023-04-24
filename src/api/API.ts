@@ -22,11 +22,18 @@ export const usersAPI = {
 	}
 }
 
-export const headerAPI ={
+export const authAPI = {
 	setUser: () => {
 		return instance.get(
-			`/auth/me`
-		).then((response)=> response.data)
+			`auth/me`
+		).then( ( response ) => response.data )
 	}
+}
+
+export const profileAPI = {
+	getProfile: ( userID: number ) => instance.get( `profile/${ userID }` )
+			.then(response => response.data)
+			.catch(error =>     console.log(error))
+	
 }
 

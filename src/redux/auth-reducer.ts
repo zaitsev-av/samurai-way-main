@@ -1,5 +1,5 @@
 import { DispatchType } from "./reduxStore";
-import { headerAPI } from "../api/API";
+import { authAPI } from "../api/API";
 
 export type ResponseAuthDataType = {
 	id: number | null
@@ -26,7 +26,7 @@ type ActionType = ReturnType<typeof setUserDataAC>
 export const authReducer = ( state: ResponseAuthType = initialState, action: ActionType ): ResponseAuthType => {
 	switch ( action.type ) {
 		case "SET-USER-DATA": {
-			return {...state, data: action.payload.authData.data, isAuth: false}
+			return {...state, data: action.payload.authData.data, isAuth: true}
 		}
 		default: {
 			return state
@@ -43,11 +43,12 @@ export const setUserDataAC = ( authData: ResponseAuthType ) => {
 	} as const
 }
 
-export const setUserThunk = () => (dispatch: DispatchType) => {
-	headerAPI.setUser()
+export const getUsersAuthData = () => ( dispatch: DispatchType) => {
+	authAPI.setUser()
 		.then( ( res ) => {
 			if ( res.resultCode === 0 ) {
 				dispatch( setUserDataAC( res.data ) )
+				    console.log(res.data)
 			}
 		})
 }

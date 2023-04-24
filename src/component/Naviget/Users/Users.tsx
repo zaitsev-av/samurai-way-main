@@ -12,15 +12,15 @@ export type UsersPropsType = {
 	onPageChanged: ( pageNumber: number ) => void
 	followingInProgress: number[]
 	follow: (userID: number)=> void
-	unfollow: (userID: number)=> void
+	unfollow: ( userID: number ) => void
+	setUserID: ( userID: number ) => void
 };
 export const Users: React.FC<UsersPropsType> = ( props ) => {
 	const {
 		users, onPageChanged, pages,
 		currentPage, followingInProgress, follow,
-		unfollow
+		unfollow, setUserID
 	} = props
-	// console.log( users )
 	return (
 		<div>
 			<div>
@@ -41,7 +41,9 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 										<div className={ s.img }>
 											<NavLink to={ `/profile/${ u.id }` }>
 												<img src={ u.photos.small !== null ? u.photos.small : abcd }
-												     alt={ 'avatar' }/>
+												     alt={ 'avatar' }
+												onClick={()=>setUserID(u.id)}
+												/>
 											</NavLink>
 										</div>
 										<div className={ s.info }>

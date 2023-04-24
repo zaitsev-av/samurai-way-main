@@ -5,7 +5,7 @@ body {
     background-color: #1a1a1d;
 }
 
-.app-wrapper {
+.appWrapper {
     border: 1px red;
     /*display: grid;*/
     /*gap: 5px;*/
@@ -20,7 +20,7 @@ body {
     /*!*background-image: linear-gradient(45deg, #310e31 0%, #942022 46%, #ff8c00 100%);*!*/
 }
 
-.app-wrapper-content {
+.appWrapperContent {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,4 +35,8 @@ body {
 }
 .app-wrapper >div > img {
     width: 100px;
+}
+.container {
+    display: flex;
+
 }

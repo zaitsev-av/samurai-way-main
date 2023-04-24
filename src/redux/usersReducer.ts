@@ -35,7 +35,6 @@ export type ActionType = ReturnType<typeof followUserSuccessAC> | ReturnType<typ
 	| ReturnType<typeof toggleIsFetchingAC>| ReturnType<typeof toggleFollowingProgressAC>
 
 export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
-	console.log('userReducer ' + action.type)
 	switch ( action.type ) {
 		case 'SET-USERS': {
 			return { ...state, users: action.payload.users}
@@ -144,7 +143,6 @@ export const getUserThunkCreater = ( currentPage: number, pageSize: number ) => 
 }
 
 export const follow = ( userID: number ) => ( dispatch: DispatchType ) => {
-	    console.log('follow thunk')
 	dispatch( toggleFollowingProgressAC( true, userID ) )
 	usersAPI.follow( userID ).then( data => {
 		data === 0 && dispatch(followUserSuccessAC( userID ))
@@ -153,10 +151,8 @@ export const follow = ( userID: number ) => ( dispatch: DispatchType ) => {
 }
 
 export const unfollow = ( userID: number ) => ( dispatch: DispatchType ) => {
-	    console.log('unfollow thunk')
 	dispatch( toggleFollowingProgressAC( true, userID ) )
 	usersAPI.unfollow( userID ).then( data => {
-		    console.log(data)
 		data === 0 && dispatch( unfollowUserSuccessAC( userID ))
  		dispatch( toggleFollowingProgressAC( false, userID ))
 	} )

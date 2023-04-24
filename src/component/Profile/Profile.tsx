@@ -5,24 +5,22 @@ import { ProfilePageType } from "../../redux/profileReducer";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
 type ProfilePropsType = {
-    profile: ProfilePageType
+    profileInfo: ProfilePageType
 	upDateNewPost: ( newPostText: string) => void
     addPost: ()  => void
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
-    const {profile, upDateNewPost, addPost} = props
+    const {profileInfo, upDateNewPost, addPost} = props
     return (
         <div className={s.wrapper}>
-            {/*<img src="https://rozabox.com/wp-content/uploads/2019/01/man-5846064_1920-735x400.jpg"*/}
-            {/*     alt=""*/}
-            {/*     className={s.img}/>*/}
-            <ProfileInfo info={profile.profile}/>
-            <MyPosts title={'My post'} post={profile.post}
-                newPostText={profile.newPostText}
+            <ProfileInfo info={profileInfo.profile}
+            />
+            <MyPosts title={'My post'} post={[]}
+                newPostText={profileInfo.status}
                 upDateNewPostAC={(newPostText: string)=> upDateNewPost(newPostText)}
                      addPostAC={addPost}
-                     value={profile.newPostText}
+                     value={profileInfo.status}
             />
         </div>
     )

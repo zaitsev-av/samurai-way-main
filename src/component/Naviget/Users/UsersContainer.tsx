@@ -4,6 +4,7 @@ import React from 'react';
 import { follow,	getUserThunkCreater, unfollow,	UserType } from "../../../redux/usersReducer";
 import { Users } from "./Users";
 import { Preloader } from "../../common/Loader/Preloader";
+import { setUserIdAC } from "../../../redux/profileReducer";
 
 
 export type UsersPropsType = {
@@ -16,6 +17,7 @@ export type UsersPropsType = {
 	getUserThunk: ( currentPage: number, pageSize: number ) => void
 	follow: ( userID: number ) => void
 	unfollow: ( userID: number ) => void
+	setUserID: (userID: number) => void
 };
 
 // создание классовой компоненты, слово extends обязательно!
@@ -46,6 +48,7 @@ class UsersContainer extends React.Component<UsersPropsType, UserType[]> { //н�
 						followingInProgress={ this.props.followingInProgress }
 						follow={ this.props.follow }
 						unfollow={ this.props.unfollow }
+						setUserID={ this.props.setUserID}
 					/>
 					
 				}
@@ -68,7 +71,8 @@ export default connect(
 	{
 		getUserThunk: getUserThunkCreater,
 		follow,
-		unfollow
+		unfollow,
+		setUserID: setUserIdAC
 	}
 )(UsersContainer);
 

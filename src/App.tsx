@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './App.css';
+import s from './App.module.css';
 import { Header } from "./component/Header/Header";
 import { Route } from 'react-router-dom';
 import { News } from "./component/Naviget/News/News";
@@ -25,28 +25,30 @@ export const App: FC<AppProps> = ({store}) => {
     
     return (
     
-        <div className='app-wrapper'>
+        <div className={s.appWrapper}>
             <Header image={ logo_transparent }
                     title={ 'Socialympics' }
             />
-            <NavigateContainer/>
-            <div className={ 'app-wrapper-content' }>
-                <Route path={ '/login' }
-                       render={ () => <FormLogin/> }/>
-                <Route path={ '/users' }
-                       render={ () => <UsersContainer  /> }/>
-                <Route path={ '/messages' }
-                       render={ () => <DialogsContainer/> }/>
-                <Route path={ '/profile/:userID?' }
-                       render={ () => <ProfileContainer/> }/>
-                <Route path={ '/news' }
-                       component={ News }/>
-                <Route path={ '/music' }
-                       component={ Music }/>
-                <Route path={ '/settings' }
-                       component={ Settings }/>
+            <div className={ s.container }>
+                <NavigateContainer/>
+                <div className={ s.appWrapperContent }>
+                    <Route path={ '/login' }
+                           render={ () => <FormLogin/> }/>
+                    <Route path={ '/users' }
+                           render={ () => <UsersContainer  /> }/>
+                    <Route path={ '/messages' }
+                           render={ () => <DialogsContainer/> }/>
+                    <Route path={ '/profile/:userID?' }
+                           render={ () => <ProfileContainer/> }/>
+                    <Route path={ '/news' }
+                           component={ News }/>
+                    <Route path={ '/music' }
+                           component={ Music }/>
+                    <Route path={ '/settings' }
+                           component={ Settings }/>
+                </div>
             </div>
-    
+            
         </div>
 
     )
