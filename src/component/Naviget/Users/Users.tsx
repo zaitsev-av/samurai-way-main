@@ -10,23 +10,17 @@ export type UsersPropsType = {
 	pages: number[]
 	currentPage: number
 	onPageChanged: ( pageNumber: number ) => void
-	followUser: ( userID: number ) => void
-	unfollowUser: ( userID: number ) => void
-	toggleFollowingProgress: ( progress: boolean, userID: number ) => void
 	followingInProgress: number[]
+	follow: (userID: number)=> void
+	unfollow: (userID: number)=> void
 };
 export const Users: React.FC<UsersPropsType> = ( props ) => {
 	const {
-		users,
-		onPageChanged,
-		pages,
-		currentPage,
-		followUser,
-		unfollowUser,
-		toggleFollowingProgress,
-		followingInProgress
+		users, onPageChanged, pages,
+		currentPage, followingInProgress, follow,
+		unfollow
 	} = props
-	console.log( users )
+	// console.log( users )
 	return (
 		<div>
 			<div>
@@ -55,10 +49,9 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 											<p className={ s.text }>{ u.status }</p>
 										</div>
 										<ButtonFollow user={ u }
-										              followUser={ followUser }
-										              unfollowUser={ unfollowUser }
-										              toggleFollowing={ toggleFollowingProgress }
 										              followingInProgress={ followingInProgress }
+										              follow={follow}
+										              unfollow={unfollow}
 										/>
 									</div>
 								</div>
