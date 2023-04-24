@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 import { DispatchType } from "./reduxStore";
 import { profileAPI } from "../api/API";
 

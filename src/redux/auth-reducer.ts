@@ -5,28 +5,24 @@ export type ResponseAuthDataType = {
 	id: number | null
 	login: string | null
 	email: string | null
+	isAuth: boolean
 }
 
-const initialState = {
-	data: {
-		id: null,
-		login: null,
-		email: null,
-	} as ResponseAuthDataType,
-	message: [],
-	fieldsErrors: [],
-	resultCode: 0,
-	isFetching: false,
+const initialState: ResponseAuthDataType = {
+	id: null,
+	email: null,
+	login: null,
 	isAuth: false
 }
 
-export type ResponseAuthType = typeof initialState
+
 type ActionType = ReturnType<typeof setUserDataAC>
 
-export const authReducer = ( state: ResponseAuthType = initialState, action: ActionType ): ResponseAuthType => {
+export const authReducer = ( state = initialState, action: ActionType ): ResponseAuthDataType => {
+	debugger
 	switch ( action.type ) {
 		case "SET-USER-DATA": {
-			return {...state, data: action.payload.authData.data, isAuth: true}
+			return {...state, ...action.payload.authData, isAuth: true}
 		}
 		default: {
 			return state
@@ -34,7 +30,8 @@ export const authReducer = ( state: ResponseAuthType = initialState, action: Act
 	}
 }
 
-export const setUserDataAC = ( authData: ResponseAuthType ) => {
+export const setUserDataAC = ( authData: ResponseAuthDataType ) => {
+	debugger
 	return {
 		type: "SET-USER-DATA",
 		payload: {
@@ -44,11 +41,10 @@ export const setUserDataAC = ( authData: ResponseAuthType ) => {
 }
 
 export const getUsersAuthData = () => ( dispatch: DispatchType) => {
-	authAPI.setUser()
-		.then( ( res ) => {
-			if ( res.resultCode === 0 ) {
-				dispatch( setUserDataAC( res.data ) )
-				    console.log(res.data)
-			}
+	authAPI.me()
+		.then( ( data ) => {
+			data.resultCode === 0 && dispatch( setUserDataAC( data.data ) )
+				    console.log(data.data)
+			
 		})
 }

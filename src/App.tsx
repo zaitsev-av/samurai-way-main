@@ -12,6 +12,7 @@ import { NavigateContainer } from "./component/Naviget/NavigateContainer";
 
 import { FormLogin } from "./component/common/FormLogin/FormLogin";
 import UsersContainer from "./component/Naviget/Users/UsersContainer";
+import HeaderContainer from "./component/Header/HeaderContainer";
 
 
 type AppProps = {
@@ -26,9 +27,7 @@ export const App: FC<AppProps> = ({store}) => {
     return (
     
         <div className={s.appWrapper}>
-            <Header image={ logo_transparent }
-                    title={ 'Socialympics' }
-            />
+            <HeaderContainer/>
             <div className={ s.container }>
                 <NavigateContainer/>
                 <div className={ s.appWrapperContent }>

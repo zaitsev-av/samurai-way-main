@@ -6,11 +6,13 @@ import { addNewMessageAC, DialogsType, updateNewMessageAC } from "../../../redux
 
 type MapStateToPropsType = {
 	dialog: DialogsType
+	isAuth: boolean
 }
 
 const mapStateToProps = ( state: AppStateType ): MapStateToPropsType => {
 	return {
-		dialog: state.dialogsReducer
+		dialog: state.dialogsReducer,
+		isAuth: state.authReducer.isAuth
 	}
 }
 
