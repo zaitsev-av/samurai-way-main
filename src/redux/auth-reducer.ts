@@ -1,3 +1,6 @@
+import { DispatchType } from "./reduxStore";
+import { headerAPI } from "../api/API";
+
 export type ResponseAuthDataType = {
 	id: number | null
 	login: string | null
@@ -38,4 +41,13 @@ export const setUserDataAC = ( authData: ResponseAuthType ) => {
 			authData
 		}
 	} as const
+}
+
+export const setUserThunk = () => (dispatch: DispatchType) => {
+	headerAPI.setUser()
+		.then( ( res ) => {
+			if ( res.resultCode === 0 ) {
+				dispatch( setUserDataAC( res.data ) )
+			}
+		})
 }
