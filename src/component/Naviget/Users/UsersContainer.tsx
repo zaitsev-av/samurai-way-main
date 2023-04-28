@@ -1,10 +1,12 @@
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/reduxStore";
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { follow,	getUserThunkCreater, unfollow,	UserType } from "../../../redux/usersReducer";
 import { Users } from "./Users";
 import { Preloader } from "../../common/Loader/Preloader";
 import { setUserIdAC } from "../../../redux/profileReducer";
+import { compose } from "redux";
+import { AuthRedirectComponent } from "../../../hoc/AuthRedirect";
 
 
 export type UsersPropsType = {
@@ -65,24 +67,24 @@ const mapStateToProps = (state: AppStateType) => ({
 	isFetching: state.usersReducer.isFetching,
 	followingInProgress: state.usersReducer.followingInProgress
 });
-
-export default connect(
+export default compose<ComponentType>(connect(
 	mapStateToProps,
 	{
 		getUserThunk: getUserThunkCreater,
 		follow,
 		unfollow,
 		setUserID: setUserIdAC
-	}
-)(UsersContainer);
+	}),
+	AuthRedirectComponent
+	)(UsersContainer)
 
-// export const Users: React.FC<UsersPropsType> = ( props ) => {
-// 	const { users, followUser, setUser } = props
-// 	useEffect( () => {
-// 		axios.get( 'https://social-network.samuraijs.com/api/1.0/users' ).then(
-// 			response => setUser( response.data.items ) )
-// 	}, [ setUser ] )
-//
-//
-//
-// };
+//  connect(
+// 	mapStateToProps,
+// 	{
+// 		getUserThunk: getUserThunkCreater,
+// 		follow,
+// 		unfollow,
+// 		setUserID: setUserIdAC
+// 	}
+// )(UsersContainer);
+

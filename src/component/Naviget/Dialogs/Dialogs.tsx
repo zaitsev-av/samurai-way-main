@@ -3,7 +3,6 @@ import s from './Dialogs.module.css'
 import { MessagesItem } from "./MessageItem/MessagesItem";
 import { DialogsItem } from "./DialogItem/DialogsItem";
 import { DialogsType } from "../../../redux/dialogsReducer";
-import { Redirect } from "react-router-dom";
 
 export type UserDialogType = {
 	id: string
@@ -20,7 +19,7 @@ type DialogsProps = {
 
 export const Dialogs: FC<DialogsProps> = (props) => {
 	const { dialog, updateNewMessageAC,
-		addNewMessageAC, isAuth } = props
+		addNewMessageAC} = props
 	const newMessages = React.createRef<HTMLTextAreaElement>()
 
 	const addNewMessages = () => {
@@ -30,17 +29,17 @@ export const Dialogs: FC<DialogsProps> = (props) => {
 		updateNewMessageAC(e.currentTarget.value )
 	}
 	
-	return isAuth ? (
-		<div className={s.dialogs}>
-			<div className={s.dialogsItem}>
-				<DialogsItem users={dialog.dialogs}/>
+	return (
+		<div className={ s.dialogs }>
+			<div className={ s.dialogsItem }>
+				<DialogsItem users={ dialog.dialogs }/>
 			</div>
-			<div className={s.messages}>
-				<div className={s.message}>
-					<MessagesItem messages={dialog.messages}/>
-				</div >
-				<div className={s.addMessageForm}>
-					<textarea ref={newMessages}
+			<div className={ s.messages }>
+				<div className={ s.message }>
+					<MessagesItem messages={ dialog.messages }/>
+				</div>
+				<div className={ s.addMessageForm }>
+					<textarea ref={ newMessages }
 							  value={dialog.newMessageText}
 							  onChange={onChangeMessage}
 							  className={s.addMessageForm_txt}
@@ -50,6 +49,4 @@ export const Dialogs: FC<DialogsProps> = (props) => {
 			</div>
 		</div>
 	)
-		:
-		<Redirect to={'/login'}/>
 };
