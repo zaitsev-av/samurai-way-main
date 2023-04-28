@@ -21,3 +21,6 @@ export const DialogsContainer = connect( mapStateToProps,
 		updateNewMessageAC,
 		addNewMessageAC
 	} )( Dialogs )
+// export default AuthRedirectComponent(connect(mapStateToProps,
+// // 	{updateNewMessageAC,
+// // 	addNewMessageAC}) (DialogsContainer))
