@@ -7,14 +7,14 @@ import { PostType } from "../../../redux/profileReducer";
 type MyPostsProps = {
     post: PostType[]
     title: string
-    newPostText: string
+    /*newPostText: string*/
     upDateNewPostAC: ( newPostText: string ) => void
     addPostAC: () => void
-    value: string
+    /*value: string*/
 }
 
 export const MyPosts: FC<MyPostsProps> = (props) => {
-    const {upDateNewPostAC, addPostAC, value} = props
+    const {upDateNewPostAC, addPostAC, /*value*/} = props
     const newPostElement= React.createRef<HTMLTextAreaElement>()
     
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -35,7 +35,7 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
             </div>
             <div className={s.container}>
                 <textarea ref={newPostElement}
-                value={value}
+                /*value={value}*/
                 onChange={onPostChange}
                 className={s.textarea}/>
                 <button className={s.button} onClick={addPostAC}>Send</button>

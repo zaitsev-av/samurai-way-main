@@ -1,29 +1,30 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import abcd from '../../../image/avatar/abcd.png'
-import {  ProfileType } from "../../../redux/profileReducer";
+import me from '../../../image/avatar/me.jpg'
+import { ProfilePageType } from "../../../redux/profileReducer";
+import { ProfileStatus } from "./ProfileStatus";
 
 export type ProfileInfoPropsType = {
-	info: ProfileType
+	info: ProfilePageType
+	updateStatus: (status: string)=> void
+	status: string
 };
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = ( props ) => {
-	const { info } = props
+	const { info, status,updateStatus } = props
+	    console.log(info)
 	return (
 		<div className={s.wrapperInfo}>
-			{info.photos.small === null
-				?
-				<img className={s.avatar}
-				     src={abcd}
-				     alt="avatar"/>
-				:
-				<img className={s.avatar}
-				     src={info.photos.small}
-				     alt="avatar"/>
-			}
+			{!info.profile.photos.small ? (
+				<img className={s.avatar} src={abcd} alt="avatar" />
+			) : (
+				<img className={s.avatar} src={info.profile.photos.small} alt="avatar" />
+			)}
 			
 			<div className={s.info}>
-				<div>My name: {info.fullName}</div>
-				<div>{!info.lookingForAJob && 'This user is looking for a job'}</div>
+				<div className={s.fullName}>{info.profile.fullName}</div>
+				<ProfileStatus status={status} updateStatus={updateStatus} />
+				{!info.profile.lookingForAJob && <div>This user is looking for a job</div>}
 			</div>
 		</div>
 	);

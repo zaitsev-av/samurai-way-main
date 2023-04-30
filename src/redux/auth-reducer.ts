@@ -19,7 +19,6 @@ const initialState: ResponseAuthDataType = {
 type ActionType = ReturnType<typeof setUserDataAC>
 
 export const authReducer = ( state = initialState, action: ActionType ): ResponseAuthDataType => {
-	debugger
 	switch ( action.type ) {
 		case "SET-USER-DATA": {
 			return {...state, ...action.payload.authData, isAuth: true}
@@ -31,7 +30,6 @@ export const authReducer = ( state = initialState, action: ActionType ): Respons
 }
 
 export const setUserDataAC = ( authData: ResponseAuthDataType ) => {
-	debugger
 	return {
 		type: "SET-USER-DATA",
 		payload: {
@@ -44,7 +42,5 @@ export const getUsersAuthData = () => ( dispatch: DispatchType) => {
 	authAPI.me()
 		.then( ( data ) => {
 			data.resultCode === 0 && dispatch( setUserDataAC( data.data ) )
-				    console.log(data.data)
-			
 		})
 }

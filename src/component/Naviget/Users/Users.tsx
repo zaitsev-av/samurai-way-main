@@ -35,7 +35,7 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 				<div className={ s.usersLists }>
 					{ users.map( u => {
 						return (
-							<>
+							<div key={u.id}>
 								<div key={ u.id }>
 									<div className={ s.card }>
 										<div className={ s.img }>
@@ -58,7 +58,7 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 									</div>
 								</div>
 							
-							</>
+							</div>
 						)
 					} )
 					}

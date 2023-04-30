@@ -8,19 +8,24 @@ type ProfilePropsType = {
     profileInfo: ProfilePageType
 	upDateNewPost: ( newPostText: string) => void
     addPost: ()  => void
+    updateStatus: (status: string)=> void
+    status: string
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
-    const {profileInfo, upDateNewPost, addPost} = props
+    const {profileInfo, upDateNewPost, addPost, status, updateStatus} = props
+        console.log(`Profile ${status}`)
     return (
         <div className={s.wrapper}>
-            <ProfileInfo info={profileInfo.profile}
+            <ProfileInfo info={profileInfo}
+                         status={status}
+                         updateStatus={updateStatus}
             />
             <MyPosts title={'My post'} post={[]}
-                newPostText={profileInfo.status}
+                /*newPostText={profileInfo.profile.}*/
                 upDateNewPostAC={(newPostText: string)=> upDateNewPost(newPostText)}
                      addPostAC={addPost}
-                     value={profileInfo.status}
+                     /*value={profileInfo.status}*/
             />
         </div>
     )

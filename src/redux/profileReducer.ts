@@ -1,36 +1,12 @@
 import { DispatchType } from "./reduxStore";
 import { profileAPI } from "../api/API";
+import { Dispatch } from "redux";
 
 
 export type PostType = {
 	id: string
 	text: string
 }
-
-// type ContactsType = {
-// 	facebook: string | null
-// 	website: string | null
-// 	vk: string | null
-// 	twitter: string | null
-// 	instagram: string | null
-// 	youtube: string | null
-// 	github: string | null
-// 	mainLink: string | null
-// }
-// type PhotosType = {
-// 	small: string
-// 	large: string
-// }
-//
-// export type ResponseProfileType = {
-// 	aboutMe: string
-// 	contacts: ContactsType
-// 	lookingForAJob: boolean
-// 	lookingForAJobDescription: string
-// 	fullName: string
-// 	userId: string
-// 	photos: PhotosType
-// }
 
 export type ProfilePageType = {
 	profile: ProfileType
@@ -56,31 +32,7 @@ export type ProfileType = {
 	}
 }
 
-// const initialState : = {
-// 	profile: {
-// 		aboutMe: "",
-// 		contacts: {
-// 			facebook: null,
-// 			website: null,
-// 			vk: null,
-// 			twitter: null,
-// 			instagram: null,
-// 			youtube: null,
-// 			github: null,
-// 			mainLink: null
-// 		},
-// 		lookingForAJob: true,
-// 		lookingForAJobDescription: "",
-// 		fullName: "",
-// 		userId: '2',
-// 		photos: {
-// 			small: "",
-// 			large: ""
-// 		}
-// 	},
-// 	status: ''
-// }
-// export type ProfilePageType = typeof initialState
+
 
 const initialState: ProfilePageType= {
 	profile: {
@@ -106,7 +58,7 @@ const initialState: ProfilePageType= {
 }
 
 export type ActionType =  ReturnType<typeof upDateNewPostAC> | ReturnType<typeof setUserProfileAC>
-| ReturnType<typeof setUserIdAC>
+	| ReturnType<typeof setUserIdAC> | ReturnType<typeof setStatusAC>
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
 	switch (action.type) {
@@ -118,10 +70,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 		// 	return state = {...state, post: [...state.post, newPost], newPostText: ''}
 		// }
 		case "SET-USER-PROFILE": {
-			return {...state, profile: action.payload.profile }
+			return { ...state, profile: action.payload.profile }
 		}
 		case "SET-USER-ID": {
-			return {...state, profile: {...state.profile, userId: action.payload.userID}}
+			return { ...state, profile: { ...state.profile, userId: action.payload.userID } }
+		}
+		case "SET-STATUS": {
+			debugger
+			return {...state, status: action.payload.status}
 		}
 		default :
 			return state
@@ -149,7 +105,7 @@ export const setUserProfileAC = ( profile: any) => {
 	} as const
 }
 
-export const setUserIdAC = (userID: number) => {
+export const setUserIdAC = ( userID: number ) => {
 	return {
 		type: "SET-USER-ID",
 		payload: {
@@ -157,10 +113,39 @@ export const setUserIdAC = (userID: number) => {
 		}
 	} as const
 }
-export const getProfileInfo = ( userID: number) => ( dispatch: DispatchType)=> {
-	profileAPI.getProfile(userID)
-		.then(data => {
-			console.log(data)
-			dispatch(setUserProfileAC(data))
-		})
+export const setStatusAC = ( status: string ) => {
+	return {
+		type: "SET-STATUS",
+		payload: { status }
+	} as const
 }
+
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+	try {
+		const response = await profileAPI.getStatus(userId);
+		dispatch(setStatusAC(response));
+	} catch (error) {
+		console.warn(error);
+	}
+};
+
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+	try {
+		    console.log(`updateStatus called ${status}`)
+		const response = await profileAPI.updateStatus(status);
+		if (response.data.resultCode === 0) {
+			dispatch(setStatusAC(status));
+		}
+	} catch (error) {
+		console.warn(error);
+	}
+};
+
+export const getProfileInfo = (userID: number) => async (dispatch: Dispatch) => {
+	try {
+		const response = await profileAPI.getProfile(userID);
+		dispatch(setUserProfileAC(response));
+	} catch (error) {
+		console.warn(error);
+	}
+};
