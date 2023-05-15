@@ -59,6 +59,11 @@
     margin-top: 40px;
     letter-spacing: 4px
 }
+.checkBox {
+    color: #bdb8b8;
+    font-size: 16px;
+
+}
 
 .loginBox a:hover {
     background: #03f40f;

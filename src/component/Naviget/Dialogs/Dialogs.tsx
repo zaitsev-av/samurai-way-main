@@ -1,8 +1,9 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { FC } from 'react';
 import s from './Dialogs.module.css'
 import { MessagesItem } from "./MessageItem/MessagesItem";
 import { DialogsItem } from "./DialogItem/DialogsItem";
 import { DialogsType } from "../../../redux/dialogsReducer";
+import { AddMessageForm } from "../../common/AddMessageForm/AddMessageForm";
 
 export type UserDialogType = {
 	id: string
@@ -12,23 +13,18 @@ export type UserDialogType = {
 type DialogsProps = {
 	dialog: DialogsType
 	updateNewMessageAC: ( newMessageText: string ) => void
-	addNewMessageAC: () => void
+	addNewMessage: (message: string) => void
 	isAuth: boolean
 };
 
 
 export const Dialogs: FC<DialogsProps> = (props) => {
-	const { dialog, updateNewMessageAC,
-		addNewMessageAC} = props
-	const newMessages = React.createRef<HTMLTextAreaElement>()
+	const { dialog, addNewMessage} = props
 
-	const addNewMessages = () => {
-	addNewMessageAC()
+	const onSubmitHandler = (message: string) => {
+		addNewMessage(message)
 	}
-	const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		updateNewMessageAC(e.currentTarget.value )
-	}
-	
+
 	return (
 		<div className={ s.dialogs }>
 			<div className={ s.dialogsItem }>
@@ -39,12 +35,7 @@ export const Dialogs: FC<DialogsProps> = (props) => {
 					<MessagesItem messages={ dialog.messages }/>
 				</div>
 				<div className={ s.addMessageForm }>
-					<textarea ref={ newMessages }
-							  value={dialog.newMessageText}
-							  onChange={onChangeMessage}
-							  className={s.addMessageForm_txt}
-					/>
-					<button onClick={addNewMessages} className={s.addMessageForm_btn}>send</button>
+					<AddMessageForm onSubmitHandler={onSubmitHandler} textArea={true}/>
 				</div>
 			</div>
 		</div>

@@ -4,39 +4,16 @@ body {
     height: 100%;
     background-color: #1a1a1d;
 }
-
-.appWrapper {
-    border: 1px red;
-    /*display: grid;*/
-    /*gap: 5px;*/
-    /*!*width: 1200px;*!*/
-    /*margin: 0 auto;*/
-    /*padding: 1rem;*/
-    /*grid-template-areas:*/
-    /*'header      header     header'*/
-    /*'nav         content    content';*/
-    /*!*grid-template-rows: 60px 1fr;*!*/
-    /*grid-template-columns: repeat(3, 1fr);*/
-    /*!*background-image: linear-gradient(45deg, #310e31 0%, #942022 46%, #ff8c00 100%);*!*/
-}
-
 .appWrapperContent {
     display: flex;
     justify-content: center;
-    align-items: center;
-
-    /*display: grid;*/
-    /*grid-area: content;*/
-    /*!*grid-template-columns: 80px 1fr;*!*/
-    /*padding: 20px;*/
-    /*!*margin: 10px;*!*/
-    /*background-color: #212121;*/
-    /*border-radius: 20px;*/
+    /*align-items: center;*/
+    margin-top: 25px;
+    margin-left: 25px;
 }
 .app-wrapper >div > img {
     width: 100px;
 }
 .container {
     display: flex;
-
 }

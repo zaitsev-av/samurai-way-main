@@ -1,17 +1,5 @@
 import {v1} from "uuid";
 
-
-
-export type MessagesPropsType = {
-	id: string
-	message: string
-}
-export type DialogPropsType = {
-	id: string
-	userName: string
-}
-
-
 const initialState = {
 	dialogs: [
 		{id: v1(), userName: "Alexandr"},
@@ -27,15 +15,13 @@ const initialState = {
 		{id: v1(), message: "How do you spell"},
 		{id: v1(), message: "What is learn? I'm learn React"},
 	] as MessagesPropsType[],
-	newMessageText: ''
+	newMessageText: ""
 }
 
-type ActionType = ReturnType<typeof addNewMessageAC> | ReturnType<typeof updateNewMessageAC>
-export type DialogsType = typeof initialState
 export const dialogsReducer = (state: DialogsType = initialState, action:ActionType): DialogsType => {
 	switch (action.type) {
 			case 'ADD-NEW-MESSAGE': {
-				const newMessage = { id: v1(), message: state.newMessageText }
+				const newMessage = { id: v1(), message: action.values}
 				return state = { ...state, messages: [ ...state.messages, newMessage ], newMessageText: '' }
 			}
 		case 'UPDATE-MEW-MESSAGE-TEXT': {
@@ -47,15 +33,32 @@ export const dialogsReducer = (state: DialogsType = initialState, action:ActionT
 	}
 }
 
-export const addNewMessageAC = () => {
+export const addNewMessageAC = (values: string) => {
 	return {
-		type: 'ADD-NEW-MESSAGE'
+		type: 'ADD-NEW-MESSAGE',
+		values
 	}as const
 }
 
 export const updateNewMessageAC = ( newMessageText: string ) => {
 	return {
 		type: 'UPDATE-MEW-MESSAGE-TEXT',
-		newMessageText: newMessageText
+		newMessageText
 	} as const
 }
+
+//types
+type ActionType = ReturnType<typeof addNewMessageAC> | ReturnType<typeof updateNewMessageAC>
+
+export type MessagesPropsType = {
+	id: string
+	message: string
+}
+
+export type DialogPropsType = {
+	id: string
+	userName: string
+}
+
+export type DialogsType = typeof initialState
+// export type InitialStateType = typeof initialState

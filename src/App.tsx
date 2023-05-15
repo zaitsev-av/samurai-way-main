@@ -5,7 +5,7 @@ import { News } from "./component/Naviget/News/News";
 import { Music } from "./component/Naviget/Music/Music";
 import { Settings } from "./component/Naviget/Settings/Settings";
 import { NavigateContainer } from "./component/Naviget/NavigateContainer";
-import { FormLogin } from "./component/common/FormLogin/FormLogin";
+import { Login } from "./component/common/FormLogin/Login";
 import UsersContainer from "./component/Naviget/Users/UsersContainer";
 import HeaderContainer from "./component/Header/HeaderContainer";
 import ProfileContainer from "./component/Profile/ProfileContainer";
@@ -22,14 +22,13 @@ export const App: FC<AppProps> = ({store}) => {
     const state = store.getState()
     
     return (
-    
         <div className={s.appWrapper}>
             <HeaderContainer/>
             <div className={ s.container }>
                 <NavigateContainer/>
                 <div className={ s.appWrapperContent }>
                     <Route path={ '/login' }
-                           render={ () => <FormLogin/> }/>
+                           render={ () => <Login/> }/>
                     <Route path={ '/users' }
                            render={ () => <UsersContainer/> }/>
                     <Route path={ '/messages' }

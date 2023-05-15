@@ -1,36 +1,26 @@
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/reduxStore";
 import { Dialogs } from "./Dialogs";
-import { addNewMessageAC, DialogsType, updateNewMessageAC } from "../../../redux/dialogsReducer";
+import { addNewMessageAC } from "../../../redux/dialogsReducer";
 import { compose } from "redux";
 import { AuthRedirectComponent } from "../../../hoc/AuthRedirect";
 import { ComponentType } from "react";
 
-
-type MapStateToPropsType = {
-	dialog: DialogsType
+const mapStateToProps = ( state: AppStateType ) => {
+	return {
+		dialog: state.dialogsReducer
+	}
 }
 
-const mapStateToProps = ( state: AppStateType ): MapStateToPropsType => {
+const mapDispatchToProps = (dispatch: any) => {
 	return {
-		dialog: state.dialogsReducer,
+		addNewMessage: (message: string) => {
+			dispatch(addNewMessageAC(message))
+		},
 	}
 }
 
 export default compose<ComponentType>(
-	connect( mapStateToProps,
-		{
-			updateNewMessageAC,
-			addNewMessageAC
-		} ),
+	connect( mapStateToProps, mapDispatchToProps),
 	AuthRedirectComponent
 )(Dialogs)
-
-// export const DialogsContainer = connect( mapStateToProps,
-// 	{
-// 		updateNewMessageAC,
-// 		addNewMessageAC
-// 	} )( Dialogs )
-// export default AuthRedirectComponent(connect(mapStateToProps,
-// // 	{updateNewMessageAC,
-// // 	addNewMessageAC}) (DialogsContainer))

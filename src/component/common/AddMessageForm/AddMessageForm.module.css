@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addMessageForm_btn {
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    background: #0066CC;
+    border-radius: 7px;
+    color: white;
+}
+.addMessageForm_btn:hover {
+    background: #3c5998;
+    border-color:#3c5998;
+    box-shadow:0 0 50px #3c5998;
+    color:white;
+}
