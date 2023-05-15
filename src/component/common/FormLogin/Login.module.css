@@ -46,7 +46,7 @@
     font-size: 12px;
 }
 
-.loginBox form a {
+.submitBtn {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -57,7 +57,9 @@
     overflow: hidden;
     transition: .5s;
     margin-top: 40px;
-    letter-spacing: 4px
+    letter-spacing: 4px;
+    background: #b0c170;
+    border-radius: 15px;
 }
 .checkBox {
     color: #bdb8b8;
@@ -65,20 +67,20 @@
 
 }
 
-.loginBox a:hover {
+.submitBtn:hover {
     background: #03f40f;
     color: #fff;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     box-shadow: 0 0 5px #03f40f,
+    0 0 15px #03f40f,
     0 0 25px #03f40f,
-    0 0 50px #03f40f,
-    0 0 100px #03f40f;
+    0 0 45px #03f40f;
 }
 
-.loginBox a span {
-    position: absolute;
-    display: block;
-}
+/*.submitBtn {*/
+/*    position: absolute;*/
+/*    display: block;*/
+/*}*/
 
 @keyframes btn-anim1 {
     0% {
