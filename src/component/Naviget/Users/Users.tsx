@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from "./Users.module.css";
 import abcd from "../../../image/avatar/abcd.png";
 import { UserType } from "../../../redux/usersReducer";
 import { NavLink } from "react-router-dom";
 import { ButtonFollow } from "../../common/Buttons/ButtonFollow";
+import { Paginator } from "../../common/Paginator/Paginator";
 
 export type UsersPropsType = {
 	users: UserType[]
@@ -21,22 +22,27 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 		currentPage, followingInProgress, follow,
 		unfollow, setUserID
 	} = props
+
 	return (
 		<div>
 			<div>
-				{ pages.map( ( el, index ) => <span key={ index }
-				                                    onClick={ () => onPageChanged( el ) }
-				                                    className={ currentPage === el
-					                                    ? s.pageActive
-					                                    : s.pageNotActive }>
-				{ index < 10 ? el : '' }
-			</span> ) }
+				<Paginator pages={pages}  currentPage={currentPage} onPageChange={onPageChanged}/>
+			{/*	{ pages.map( ( el, index ) =>*/}
+			{/*		*/}
+			{/*		<span key={ index }*/}
+			{/*	                                    onClick={ () => onPageChanged( el ) }*/}
+			{/*	                                    className={ currentPage === el*/}
+			{/*		                                    ? s.pageActive*/}
+			{/*		                                    : s.pageNotActive }>*/}
+			{/*	{ index < 10 ? el : '' }*/}
+			{/*</span> )*/}
+			{/*	}*/}
 				</div >
 				<div className={ s.usersLists }>
 					{ users.map( u => {
 						return (
 							<div key={u.id}>
-								<div key={ u.id }>
+								<div>
 									<div className={ s.card }>
 										<div className={ s.img }>
 											<NavLink to={ `/profile/${ u.id }` }>

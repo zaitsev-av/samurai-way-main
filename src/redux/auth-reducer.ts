@@ -29,18 +29,33 @@ export const authReducer = ( state = initialState, action: ActionType ): Respons
 	}
 }
 
-export const setUserDataAC = ( authData: ResponseAuthDataType ) => {
+export const setUserDataAC = ( authData: ResponseAuthDataType, isAuth: boolean ) => {
 	return {
 		type: "SET-USER-DATA",
 		payload: {
-			authData
+			authData,
+			isAuth
 		}
 	} as const
 }
-
+//thunks
 export const getUsersAuthData = () => ( dispatch: DispatchType) => {
 	authAPI.me()
 		.then( ( data ) => {
-			data.resultCode === 0 && dispatch( setUserDataAC( data.data ) )
+			data.resultCode === 0 && dispatch( setUserDataAC( data.data, true ) )
+		})
+}
+
+export const loginTC = (email: string, password: string, rememberMe: boolean) => ( dispatch: DispatchType) => {
+	authAPI.login(email,password, rememberMe)
+		.then( ( data ) => {
+			data.resultCode === 0 && dispatch( getUsersAuthData() )
+		})
+}
+
+export const logoutTC = () => ( dispatch: DispatchType) => {
+	authAPI.logout()
+		.then( ( data ) => {
+			data.resultCode === 0 && dispatch(  setUserDataAC( data.data, false ) )
 		})
 }
