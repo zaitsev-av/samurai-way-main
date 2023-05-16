@@ -4,7 +4,6 @@ import { v1 } from "uuid";
 
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
-	debugger
 	switch (action.type) {
 		case 'ADD-POST':{
 			const newPost = {id: v1(), text: action.payload.text }
@@ -118,8 +117,22 @@ export type ProfileType = {
 		large: string
 	}
 }
-
-const initialState: ProfilePageType= {
+//для того чтобы страница была не пустая
+let mePosts: PostType[] = [
+	{
+		id: v1(),
+		text: 'React is a JavaScript library for building user interfaces. It was developed by Facebook and is now maintained by a community of developers. React allows developers to create reusable UI components and manage the state of those components efficiently. React uses a declarative approach to building components, meaning that developers describe what they want the UI to look like and React handles the rest. React has become a popular choice for building web applications due to its flexibility, performance, and large developer community.'
+	},
+	{
+		id: v1(),
+		text: 'TypeScript is a syntactical extension to JavaScript that adds static typing. It allows developers to catch errors during compilation rather than just during runtime. This simplifies debugging and reduces the number of errors that can occur when running code. TypeScript also has great tooling support such as code editors and IDEs. It enables the development of large applications with simpler and more understandable code, making it more suitable for larger teams of developers'
+	},
+	{
+		id: v1(),
+		text: 'As a developer, I possess the skills necessary to create high-quality software products. I can effectively solve problems and quickly adapt to new technologies. I am confident that my dedication and diligence will help me successfully tackle any challenges that may arise during my work as a developer.'
+	}
+]
+const initialState: ProfilePageType = {
 	profile: {
 		userId: 28474,
 		lookingForAJob: false,
@@ -140,7 +153,7 @@ const initialState: ProfilePageType= {
 		}
 	},
 	status: '',
-	posts:[],
+	posts: [ ...mePosts ],
 	newPostText: ''
 }
 

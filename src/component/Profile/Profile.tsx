@@ -10,10 +10,11 @@ type ProfilePropsType = {
     updateStatus: ( status: string ) => void
     status: string
     posts: PostType[]
+    userID: number
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
-    const { profileInfo, addPost, status, updateStatus, posts } = props
+    const { profileInfo, addPost, status, updateStatus, posts, userID } = props
     
     return (
         <div className={ s.wrapper }>
@@ -24,6 +25,7 @@ export const Profile: FC<ProfilePropsType> = (props) => {
             <MyPosts title={ 'My post' }
                      post={ posts }
                      addPost={ addPost }
+                     userID={userID}
             />
         </div>
     )

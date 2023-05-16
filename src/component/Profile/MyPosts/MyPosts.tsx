@@ -9,22 +9,27 @@ type MyPostsProps = {
     post: PostType[]
     title: string
     addPost: (text: string) => void
+    userID: number
 }
 
 export const MyPosts: React.FC<MyPostsProps> = (props) => {
-    const {addPost} = props
+    const {addPost, userID, post, title} = props
 
     const onSubmitHandler = (message: string) => {
         addPost(message)
+    }
+    let mePosts = post
+    if ( userID !== 28474 ) {
+        mePosts = []
     }
     
     return (
 
         <div>
-            <h2>{props.title}</h2>
+            <h2>{title}</h2>
 
             <div>
-                {props.post.map((p) => {
+                {mePosts.map((p) => {
                     return <Post post={p}
                                  key={p.id}/>
                 })}
