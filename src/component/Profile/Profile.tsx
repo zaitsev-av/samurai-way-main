@@ -1,31 +1,29 @@
 import React, {FC} from "react";
 import s from './Profile.module.css'
-import {MyPosts} from "./MyPosts/MyPosts";
-import { ProfilePageType } from "../../redux/profileReducer";
+import { MyPosts } from "./MyPosts/MyPosts";
+import { PostType, ProfilePageType } from "../../redux/profileReducer";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
 type ProfilePropsType = {
     profileInfo: ProfilePageType
-	upDateNewPost: ( newPostText: string) => void
-    addPost: ()  => void
-    updateStatus: (status: string)=> void
+    addPost: ( text: string ) => void
+    updateStatus: ( status: string ) => void
     status: string
+    posts: PostType[]
 }
 
 export const Profile: FC<ProfilePropsType> = (props) => {
-    const {profileInfo, upDateNewPost, addPost, status, updateStatus} = props
-        console.log(`Profile ${status}`)
+    const { profileInfo, addPost, status, updateStatus, posts } = props
+    
     return (
-        <div className={s.wrapper}>
-            <ProfileInfo info={profileInfo}
-                         status={status}
-                         updateStatus={updateStatus}
+        <div className={ s.wrapper }>
+            <ProfileInfo info={ profileInfo }
+                         status={ status }
+                         updateStatus={ updateStatus }
             />
-            <MyPosts title={'My post'} post={[]}
-                /*newPostText={profileInfo.profile.}*/
-                upDateNewPostAC={(newPostText: string)=> upDateNewPost(newPostText)}
-                     addPostAC={addPost}
-                     /*value={profileInfo.status}*/
+            <MyPosts title={ 'My post' }
+                     post={ posts }
+                     addPost={ addPost }
             />
         </div>
     )

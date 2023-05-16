@@ -1,74 +1,15 @@
-import { DispatchType } from "./reduxStore";
 import { profileAPI } from "../api/API";
 import { Dispatch } from "redux";
+import { v1 } from "uuid";
 
-
-export type PostType = {
-	id: string
-	text: string
-}
-
-export type ProfilePageType = {
-	profile: ProfileType
-	status: string
-}
-export type ProfileType = {
-	userId: number
-	lookingForAJob: boolean
-	lookingForAJobDescription: string
-	fullName: string
-	contacts: {},
-	github: string
-	vk: string
-	facebook: string
-	instagram: string
-	twitter: string
-	website: string
-	youtube: string
-	mainLink: string
-	photos: {
-		small: string
-		large: string
-	}
-}
-
-
-
-const initialState: ProfilePageType= {
-	profile: {
-		userId: 28474,
-		lookingForAJob: false,
-		lookingForAJobDescription: '',
-		fullName: '',
-		contacts: {},
-		github: '',
-		vk: '',
-		facebook: '',
-		instagram: '',
-		twitter: '',
-		website: '',
-		youtube: '',
-		mainLink: '',
-		photos: {
-			small: '',
-			large: ''
-		}
-	},
-	status: ''
-}
-
-export type ActionType =  ReturnType<typeof upDateNewPostAC> | ReturnType<typeof setUserProfileAC>
-	| ReturnType<typeof setUserIdAC> | ReturnType<typeof setStatusAC>
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
+	debugger
 	switch (action.type) {
-		case 'UPDATE-NEW-POST-TEXT':{
-			return state = {...state, status: action.status}
+		case 'ADD-POST':{
+			const newPost = {id: v1(), text: action.payload.text }
+			return state = {...state, posts: [...state.posts, newPost], newPostText: ''}
 		}
-		// case 'ADD-POST':{
-		// 	const newPost = {id: v1(), text: state.status }
-		// 	return state = {...state, post: [...state.post, newPost], newPostText: ''}
-		// }
 		case "SET-USER-PROFILE": {
 			return { ...state, profile: action.payload.profile }
 		}
@@ -84,17 +25,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 	}
 	
 }
-
-export const addPostAC = () => {
+//actions
+export const addPostAC = (text: string) => {
 	return {
-		type: 'ADD-POST'
+		type: 'ADD-POST',
+		payload: {text}
 	} as const
-}
-export const upDateNewPostAC = (newPostText: string) => {
-	return {
-		type: 'UPDATE-NEW-POST-TEXT',
-		status: newPostText
-	}as const
 }
 export const setUserProfileAC = ( profile: any) => {
 	return {
@@ -119,7 +55,7 @@ export const setStatusAC = ( status: string ) => {
 		payload: { status }
 	} as const
 }
-
+//thunks
 export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
 	try {
 		const response = await profileAPI.getStatus(userId);
@@ -149,3 +85,67 @@ export const getProfileInfo = (userID: number) => async (dispatch: Dispatch) => 
 		console.warn(error);
 	}
 };
+
+//types
+
+export type PostType = {
+	id: string
+	text: string
+}
+
+export type ProfilePageType = {
+	profile: ProfileType
+	status: string
+	posts: PostType[],
+	newPostText: string
+}
+export type ProfileType = {
+	userId: number
+	lookingForAJob: boolean
+	lookingForAJobDescription: string
+	fullName: string
+	contacts: {},
+	github: string
+	vk: string
+	facebook: string
+	instagram: string
+	twitter: string
+	website: string
+	youtube: string
+	mainLink: string
+	photos: {
+		small: string
+		large: string
+	}
+}
+
+const initialState: ProfilePageType= {
+	profile: {
+		userId: 28474,
+		lookingForAJob: false,
+		lookingForAJobDescription: '',
+		fullName: '',
+		contacts: {},
+		github: '',
+		vk: '',
+		facebook: '',
+		instagram: '',
+		twitter: '',
+		website: '',
+		youtube: '',
+		mainLink: '',
+		photos: {
+			small: '',
+			large: ''
+		}
+	},
+	status: '',
+	posts:[],
+	newPostText: ''
+}
+
+export type ActionType =
+	| ReturnType<typeof setUserProfileAC>
+	| ReturnType<typeof setUserIdAC>
+	| ReturnType<typeof setStatusAC>
+	| ReturnType<typeof addPostAC>

@@ -36,10 +36,10 @@ export const Login: React.FC = ()  => {
 	return (
 		<>
 			
-			{/*<div>*/}
-			{/*	<h1>LOGIN</h1>*/}
-			{/*	/!*{ errorMessage && <h3 style={ { color: 'red' } }>{ errorMessage }</h3> }*!/*/}
-			{/*</div>*/}
+			<div>
+				<h1>LOGIN</h1>
+				{/*{ errorMessage && <h3 style={ { color: 'red' } }>{ errorMessage }</h3> }*/}
+			</div>
 			
 			<div className={s.loginBox}>
 				<form onSubmit={handleSubmit(onSubmit)}>

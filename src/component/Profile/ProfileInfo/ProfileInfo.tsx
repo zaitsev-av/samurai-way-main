@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import abcd from '../../../image/avatar/abcd.png'
-import me from '../../../image/avatar/me.jpg'
 import { ProfilePageType } from "../../../redux/profileReducer";
 import { ProfileStatus } from "./ProfileStatus";
 
@@ -12,7 +11,6 @@ export type ProfileInfoPropsType = {
 };
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = ( props ) => {
 	const { info, status,updateStatus } = props
-	    console.log(info)
 	return (
 		<div className={s.wrapperInfo}>
 			{!info.profile.photos.small ? (

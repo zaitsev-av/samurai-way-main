@@ -1,24 +1,21 @@
-import React, { FC, ChangeEvent } from 'react';
+import React from 'react';
 import s from './MyPosts.module.css'
 import { Post } from "./Post/Post";
 import { PostType } from "../../../redux/profileReducer";
+import { AddMessageForm } from "../../common/AddMessageForm/AddMessageForm";
 
 
 type MyPostsProps = {
     post: PostType[]
     title: string
-    /*newPostText: string*/
-    upDateNewPostAC: ( newPostText: string ) => void
-    addPostAC: () => void
-    /*value: string*/
+    addPost: (text: string) => void
 }
 
-export const MyPosts: FC<MyPostsProps> = (props) => {
-    const {upDateNewPostAC, addPostAC, /*value*/} = props
-    const newPostElement= React.createRef<HTMLTextAreaElement>()
-    
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        upDateNewPostAC(e.currentTarget.value)
+export const MyPosts: React.FC<MyPostsProps> = (props) => {
+    const {addPost} = props
+
+    const onSubmitHandler = (message: string) => {
+        addPost(message)
     }
     
     return (
@@ -34,11 +31,7 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
 
             </div>
             <div className={s.container}>
-                <textarea ref={newPostElement}
-                /*value={value}*/
-                onChange={onPostChange}
-                className={s.textarea}/>
-                <button className={s.button} onClick={addPostAC}>Send</button>
+                <AddMessageForm onSubmitHandler={onSubmitHandler} textArea={true}/>
             </div>
         </div>
     );
