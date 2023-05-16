@@ -41,7 +41,6 @@ class UsersContainer extends React.Component<UsersPropsType, UserType[]> { //Ð½Ð
 		}
 		return (
 			<>
-				{ this.props.isFetching ? <Preloader/> :
 					<Users
 						users={ this.props.users }
 						pages={ pages }
@@ -50,10 +49,9 @@ class UsersContainer extends React.Component<UsersPropsType, UserType[]> { //Ð½Ð
 						followingInProgress={ this.props.followingInProgress }
 						follow={ this.props.follow }
 						unfollow={ this.props.unfollow }
-						setUserID={ this.props.setUserID}
+						setUserID={ this.props.setUserID }
+						isFetching={ this.props.isFetching }
 					/>
-					
-				}
 			</>
 		
 		)

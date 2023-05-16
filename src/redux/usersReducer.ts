@@ -30,9 +30,14 @@ const initialState: UsersPageType = {
 	followingInProgress: []
 }
 
-export type ActionType = ReturnType<typeof followUserSuccessAC> | ReturnType<typeof unfollowUserSuccessAC> | ReturnType<typeof setUserAC>
-	| ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC>
-	| ReturnType<typeof toggleIsFetchingAC>| ReturnType<typeof toggleFollowingProgressAC>
+export type ActionType =
+	| ReturnType<typeof followUserSuccessAC>
+	| ReturnType<typeof unfollowUserSuccessAC>
+	| ReturnType<typeof setUserAC>
+	| ReturnType<typeof setCurrentPageAC>
+	| ReturnType<typeof setTotalUsersCountAC>
+	| ReturnType<typeof toggleIsFetchingAC>
+	| ReturnType<typeof toggleFollowingProgressAC>
 
 export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
 	switch ( action.type ) {
@@ -53,13 +58,11 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 				: {...state, followingInProgress: state.followingInProgress.filter((id) => id !== action.id)}
 		}
 		case "FOLLOW-USER": {
-			debugger
 			return {...state, users: state.users.map(u => u.id === action.payload.userID
 					?
 					{...u, followed: true}: u)}
 		}
 		case "UNFOLLOW-USER": {
-			debugger
 			return {...state, users: state.users.map(u => u.id === action.payload.userID
 					?
 					{...u, followed: false}: u)}

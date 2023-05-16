@@ -17,7 +17,7 @@ type Inputs = {
 export const Login: React.FC = ()  => {
 	const dispatch = useDispatch()
 	const isAuth = useSelector<AppStateType, boolean>( state => state.authReducer.isAuth )
-	// const isCaptcha = useAppSelector( state => state.auth.captchaURL )
+	// const isCaptcha = useAppSelector( state => state.auth.captchaURL )// пока не сделал
 	// let errorMessage = useAppSelector( state => state.auth.errorMessage )
 	
 	const { register, handleSubmit, watch,
@@ -60,9 +60,6 @@ export const Login: React.FC = ()  => {
 						<input type="checkbox" { ...register( "rememberMe" ) }/>
 					</div>
 					<div>
-						{/*<NavLink to="#">*/}
-						{/*	SEND*/}
-						{/*</NavLink>*/}
 						<input type="submit" className={s.submitBtn}/>
 					</div>
 				</form>

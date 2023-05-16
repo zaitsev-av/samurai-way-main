@@ -20,7 +20,7 @@ export const AddMessageForm = ({onSubmitHandler, textArea}: AddMessageFormMyPost
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className={s.wrapper}>
 				{textArea
-					? <textarea cols={30} rows={10} placeholder={'Enter your message'} {...register("message", {
+					? <textarea className={textArea ? `${s.textarea}`: ''} cols={30} rows={10} placeholder={'Enter your message'} {...register("message", {
 						required: "Required field",
 						minLength: {
 							value: 2,
