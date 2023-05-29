@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import s from "./Paginator.module.css";
+import { useDispatch } from "react-redux";
+import { setCurrentPageAC } from "../../../redux/usersReducer";
 
 type PaginatorProps = {
 	pages: number[],
@@ -17,10 +19,12 @@ export const Paginator: React.FC<PaginatorProps> = ({
 	const totalCount = pages.length;
 	const startIndex = Math.max(1, activePage - Math.floor(pageLimit / 2));
 	const endIndex = Math.min(totalCount, startIndex + pageLimit - 1);
+	const dispatch = useDispatch()
 	
 	const onClickHandler = (pageNumber: number) => {
 		onPageChange(pageNumber);
 		setActivePage(pageNumber);
+		dispatch(setCurrentPageAC(pageNumber))
 	};
 	
 	return (

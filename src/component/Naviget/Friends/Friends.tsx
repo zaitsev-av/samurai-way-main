@@ -13,13 +13,12 @@ export const Friends = (props: FriendType) => {
 		<>
 		<div className={s.nameBlock}>Friends</div>
 		<div className={s.friends}>
-
 			{props.menuPages.friends.map(f => {
 				return (
 					<div key={f.id} className={s.friend}>
 							<img src={people}
 								  alt=""/>
-						{f.userName}
+						<span>{f.userName}</span>
 					</div>
 				)
 			})}

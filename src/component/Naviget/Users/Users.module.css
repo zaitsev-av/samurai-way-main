@@ -14,6 +14,12 @@
     z-index: 2;
 }
 
+.usersPreloader {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}
+
 .usersLists {
     display: flex;
     flex-direction: row;

@@ -26,7 +26,7 @@ export const Users: React.FC<UsersPropsType> = ( props ) => {
 	} = props
 
 	return (
-		<div className={s.wrapper}> {isFetching  ? <Preloader/> : ( <>
+		<div className={s.wrapper}> {isFetching  ? <div className={s.usersPreloader}><Preloader/> </div>: ( <>
 			<div>
 				<Paginator pages={ pages }
 				           currentPage={ currentPage }

@@ -18,7 +18,6 @@ import { Preloader } from "./component/common/Loader/Preloader";
 
 export const App: React.FC = () => {
     const initialized = useSelector<AppStateType, boolean>( state => state.appReducer.isInitialized )
-    console.log( initialized )
     const dispatch = useDispatch()
     useEffect( () => {
         dispatch( setInitializeAppTC() )
@@ -42,7 +41,7 @@ export const App: React.FC = () => {
                                    render={ () => <UsersContainer/> }/>
                             <Route path={ '/messages' }
                                    render={ () => <DialogsContainer/> }/>
-                            <Route path={ '/profile/:userID? ' }
+                            <Route path={ '/profile/:userID?' }
                                    render={ () => <ProfileContainer/> }/>
                             <Route path={ '/news' }
                                    component={ News }/>
