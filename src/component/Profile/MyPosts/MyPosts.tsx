@@ -26,7 +26,7 @@ export const MyPosts: React.FC<MyPostsProps> = (props) => {
     return (
 
         <div>
-            <h2>{title}</h2>
+            <h2 style={{color: 'red'}}>{title}</h2>
 
             <div>
                 {mePosts.map((p) => {
@@ -36,7 +36,7 @@ export const MyPosts: React.FC<MyPostsProps> = (props) => {
 
             </div>
             <div className={s.container}>
-                <AddMessageForm onSubmitHandler={onSubmitHandler} textArea={true}/>
+                <AddMessageForm onSubmitHandler={onSubmitHandler} textArea={true }/>
             </div>
         </div>
     );

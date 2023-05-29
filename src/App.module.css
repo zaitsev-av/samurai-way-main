@@ -17,3 +17,8 @@ body {
 .container {
     display: flex;
 }
+.appPreloaderWrapper {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}

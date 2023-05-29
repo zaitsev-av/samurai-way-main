@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../redux/reduxStore";
 import { loginTC } from "../../../redux/auth-reducer";
-import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import s from "./Login.module.css";
 
 type Inputs = {
@@ -30,7 +30,7 @@ export const Login: React.FC = ()  => {
 	
 	
 	if ( isAuth ) {
-		return <NavLink to={ '/profile' }/>
+		return <Redirect to={ '/profile' }/>
 	}
 	
 	return (

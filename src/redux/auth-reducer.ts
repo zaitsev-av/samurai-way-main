@@ -1,6 +1,12 @@
 import { DispatchType } from "./reduxStore";
 import { authAPI } from "../api/API";
 
+const initialState: ResponseAuthDataType = {
+	id: null,
+	email: null,
+	login: null,
+	isAuth: false
+}
 
 export const authReducer = ( state = initialState, action: ActionType ): ResponseAuthDataType => {
 	switch ( action.type ) {
@@ -24,7 +30,7 @@ export const setUserDataAC = ( authData: ResponseAuthDataType, isAuth: boolean )
 }
 //thunks
 export const getUsersAuthData = () => ( dispatch: DispatchType) => {
-	authAPI.me()
+	return authAPI.me()
 		.then( ( data ) => {
 			data.resultCode === 0 && dispatch( setUserDataAC( data.data, true ) )
 		})
@@ -37,7 +43,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
 		})
 }
 
-export const logoutTC = () => async ( dispatch: DispatchType) => {
+export const logOutTC = () => async ( dispatch: DispatchType) => {
 	console.log('called')
 	try {
 		const res = await  authAPI.logout()
@@ -57,13 +63,6 @@ export type ResponseAuthDataType = {
 	login: string | null
 	email: string | null
 	isAuth: boolean
-}
-
-const initialState: ResponseAuthDataType = {
-	id: null,
-	email: null,
-	login: null,
-	isAuth: false
 }
 
 type ActionType = ReturnType<typeof setUserDataAC>

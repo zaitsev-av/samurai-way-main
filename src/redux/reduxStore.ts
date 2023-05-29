@@ -5,6 +5,7 @@ import { menuReducer } from "./menuReducer";
 import { usersReducer } from "./usersReducer";
 import { authReducer } from "./auth-reducer";
 import thunk from "redux-thunk";
+import { appReducer } from "./app-reducer";
 
 const rootReducer = combineReducers({
 	profileReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	menuReducer,
 	usersReducer,
 	authReducer,
+	appReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
