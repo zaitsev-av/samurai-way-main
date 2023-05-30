@@ -11,11 +11,12 @@ type MessagesItemProps = {
 };
 export const MessagesItem: FC<MessagesItemProps> = (props) => {
 	return (
-		<div className={s.dialog + ' ' + s.active}>
+		
+		<div className={s.messages}>
 
 			{props.messages.map(m => {
 				return (
-					<div key={m.id} className={s.message}>{m.message}</div>
+					<div key={m.id} className={s.message}> {m.message}</div>
 				)
 			})}
 		</div>

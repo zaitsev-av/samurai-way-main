@@ -9,7 +9,7 @@ type DialogsItemProps = {
 };
 export const DialogsItem: FC<DialogsItemProps> = (props) => {
 	return (
-		<div>
+		<div className={s.dialogWrapper}>
 			{props.users.map(u => {
 				return (
 					<div key={u.id} className={s.dialogItem}>

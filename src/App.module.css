@@ -8,14 +8,17 @@ body {
     display: flex;
     justify-content: center;
     /*align-items: center;*/
-    margin-top: 25px;
-    margin-left: 25px;
+    /*margin-top: 25px;*/
+    /*margin-left: 25px;*/
+    margin: 25px;
+    width: 100%;
 }
 .app-wrapper >div > img {
     width: 100px;
 }
 .container {
     display: flex;
+    justify-content: space-between;
 }
 .appPreloaderWrapper {
     position: fixed;

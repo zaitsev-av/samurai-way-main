@@ -1,7 +1,13 @@
-
-
+.dialogItem {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    padding: 10px;
+    font-size: 20px;
+}
 
 .dialogItem img {
+    margin-right: 10px;
     width: 40px;
     height: 40px;
 }
