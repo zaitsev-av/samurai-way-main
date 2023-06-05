@@ -26,7 +26,7 @@ export const MyPosts: React.FC<MyPostsProps> = (props) => {
     return (
 
         <div>
-            <h2 style={{color: 'red'}}>{title}</h2>
+            <h2 className={s.headerPost}>{title}</h2>
 
             <div>
                 {mePosts.map((p) => {
