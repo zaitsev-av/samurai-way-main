@@ -7,13 +7,14 @@
 .message {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
+    width: 95%;
     margin: 5px;
     padding: 10px;
     border: 1px solid #AFD275;
     border-radius: 10px;
     color: #eee7e7;
     font-size: 20px;
+    background-color: rgba(73, 73, 75, 0.23);
 }
 .dialogsItem .active {
     color: tomato;

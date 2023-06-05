@@ -6,7 +6,7 @@ type ProfileStatusPropsType = {
 	status: string;
 };
 
-export const ProfileStatus: React.FC<ProfileStatusPropsType> = ( { status, updateStatus } ) => {
+export const ProfileStatus: React.FC<ProfileStatusPropsType> = ( { status, updateStatus: upDateStatus } ) => {
 	const [ editMode, setEditMode ] = useState<boolean>( false );
 	const [ value, setValue ] = useState<string>( status );
 	
@@ -20,7 +20,7 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ( { status, updat
 	
 	const deactivateEditMode = () => {
 		setEditMode( false );
-		updateStatus( value )
+		upDateStatus( value )
 		// updateStatus(value);
 	};
 	
