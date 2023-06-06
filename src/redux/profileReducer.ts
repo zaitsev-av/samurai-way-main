@@ -16,7 +16,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 			return { ...state, profile: { ...state.profile, userId: action.payload.userID } }
 		}
 		case "SET-STATUS": {
-			debugger
 			return {...state, status: action.payload.status}
 		}
 		default :

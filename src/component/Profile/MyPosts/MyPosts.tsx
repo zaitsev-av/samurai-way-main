@@ -1,43 +1,43 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import s from './MyPosts.module.css'
 import { Post } from "./Post/Post";
 import { PostType } from "../../../redux/profileReducer";
 import { AddMessageForm } from "../../common/AddMessageForm/AddMessageForm";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../../redux/reduxStore";
 
 
 type MyPostsProps = {
-    post: PostType[]
     title: string
-    addPost: (text: string) => void
+    addPost: ( text: string ) => void
     userID: number
 }
 
-export const MyPosts: React.FC<MyPostsProps> = (props) => {
-    const {addPost, userID, post, title} = props
-
-    const onSubmitHandler = (message: string) => {
-        addPost(message)
-    }
+export const MyPosts: React.FC<MyPostsProps> = memo( ( props ) => {
+    const { addPost, userID, title } = props
+    const post = useSelector<AppStateType, PostType[]>( state => state.profileReducer.posts)
+    
+    const onSubmitHandler = useCallback( () => ( message: string ) => {
+        addPost( message )
+    }, [ addPost ] )
+    
     let mePosts = post
     if ( userID !== 28474 ) {
         mePosts = []
     }
-    
     return (
-
         <div>
-            <h2 className={s.headerPost}>{title}</h2>
-
+            <h2 className={ s.headerPost }>{ title }</h2>
             <div>
                 {mePosts.map((p) => {
-                    return <Post post={p}
-                                 key={p.id}/>
-                })}
-
+                    return <Post post={ p }
+                                 key={ p.id }/>
+                } ) }
             </div>
-            <div className={s.container}>
-                <AddMessageForm onSubmitHandler={onSubmitHandler} textArea={true }/>
+            <div className={ s.container }>
+                <AddMessageForm onSubmitHandler={ onSubmitHandler }
+                                textArea={ true }/>
             </div>
         </div>
     );
-};
+} );

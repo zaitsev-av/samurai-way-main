@@ -1,28 +1,29 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 
 
 type ProfileStatusPropsType = {
-	updateStatus: ( status: string ) => void;
+	upDateStatus: ( status: string ) => void;
 	status: string;
 };
 
-export const ProfileStatus: React.FC<ProfileStatusPropsType> = ( { status, updateStatus: upDateStatus } ) => {
+export const ProfileStatus: React.FC<ProfileStatusPropsType> = memo( ( { status, upDateStatus } ) => {
 	const [ editMode, setEditMode ] = useState<boolean>( false );
 	const [ value, setValue ] = useState<string>( status );
 	
 	useEffect( () => {
 		setValue( status )
 	}, [ status ] )
-	const activateEditMode = () => {
+	
+	const activateEditMode = useCallback(() => {
 		setEditMode( true );
 		setValue( status );
-	};
+	}, [status]);
 	
-	const deactivateEditMode = () => {
+	const deactivateEditMode = useCallback (() => {
 		setEditMode( false );
 		upDateStatus( value )
 		// updateStatus(value);
-	};
+	}, [upDateStatus, value]);
 	
 	const onStatusChange = ( e: ChangeEvent<HTMLInputElement> ) => {
 		setValue( e.currentTarget.value );
@@ -43,7 +44,7 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ( { status, updat
 			) }
 		</div>
 	);
-};
+});
 //-------------class component ----------------------
 // import React, { ChangeEvent, Component } from 'react';
 //
