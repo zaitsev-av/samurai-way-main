@@ -31,8 +31,7 @@ const initialState: UsersPageType = {
 }
 
 export type ActionType =
-	| ReturnType<typeof followUserSuccessAC>
-	| ReturnType<typeof unfollowUserSuccessAC>
+	| ReturnType<typeof followingUserSuccessAC>
 	| ReturnType<typeof setUserAC>
 	| ReturnType<typeof setCurrentPageAC>
 	| ReturnType<typeof setTotalUsersCountAC>
@@ -57,18 +56,11 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 			return action.progress ? { ...state, followingInProgress: [ ...state.followingInProgress, action.id ] }
 				: { ...state, followingInProgress: state.followingInProgress.filter( ( id ) => id !== action.id ) }
 		}
-		case "user/FOLLOW-USER": {
+		case "user/FOLLOWING-USER": {
 			return {
 				...state, users: state.users.map( u => u.id === action.payload.userID
 					?
-					{ ...u, followed: true } : u )
-			}
-		}
-		case "user/UNFOLLOW-USER": {
-			return {
-				...state, users: state.users.map( u => u.id === action.payload.userID
-					?
-					{ ...u, followed: false } : u )
+					{ ...u, followed: !u.followed } : u )
 			}
 		}
 		default : {
@@ -77,19 +69,10 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 	}
 }
 
-export const followUserSuccessAC = ( userID: number ) => {
-	console.log('followUserAC')
+export const followingUserSuccessAC = ( userID: number ) => {
+	console.log( 'followUserAC' )
 	return {
-		type: 'user/FOLLOW-USER',
-		payload: {
-			userID
-		}
-	} as const
-}
-
-export const unfollowUserSuccessAC = ( userID: number ) => {
-	return {
-		type: 'user/UNFOLLOW-USER',
+		type: 'user/FOLLOWING-USER',
 		payload: {
 			userID
 		}
@@ -149,13 +132,13 @@ export const getUserThunkCreater = ( currentPage: number, pageSize: number ) => 
 export const follow = ( userID: number ) => async ( dispatch: DispatchType ) => {
 	dispatch( toggleFollowingProgressAC( true, userID ) )
 	const res = await usersAPI.follow( userID )
-	res === 0 && dispatch( followUserSuccessAC( userID ) )
+	res === 0 && dispatch( followingUserSuccessAC( userID ) )
 	dispatch( toggleFollowingProgressAC( false, userID ) )
 }
 
 export const unfollow = ( userID: number ) => async ( dispatch: DispatchType ) => {
 	dispatch( toggleFollowingProgressAC( true, userID ) )
 	const res = await usersAPI.unfollow( userID )
-	res === 0 && dispatch( unfollowUserSuccessAC( userID ) )
+	res === 0 && dispatch( followingUserSuccessAC( userID ) )
 	dispatch( toggleFollowingProgressAC( false, userID ) )
 }

@@ -13,7 +13,8 @@ export type HeaderContainerPropsType = {
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 	
 	render() {
-		return <Header isAuth={this.props.isAuth} login={this.props.login} logoutTC={this.props.logoutTC}/>
+		const {isAuth, login, logoutTC} = this.props
+		return <Header isAuth={isAuth} login={login} logoutTC={logoutTC}/>
 	}
 }
 

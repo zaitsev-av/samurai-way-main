@@ -31,17 +31,25 @@ export type UsersPropsType = {
 
 // создание классовой компоненты, слово extends обязательно!
 class UsersContainer extends React.Component<UsersPropsType, UserType[]> { //наследование классовой компоненты у реакта
+	
 	componentDidMount() {
-		this.props.getUserThunk( this.props.currentPage, this.props.pageSize )
+		const {currentPage,pageSize, getUserThunk} = this.props
+		getUserThunk( currentPage, pageSize )
 		}// запрос на сервер за юзерами
 		
 	
 	onPageChanged = (pageNumber: number) => {
-		this.props.getUserThunk( pageNumber, this.props.pageSize )
+		const {pageSize,getUserThunk } = this.props
+		getUserThunk( pageNumber, pageSize )
 	}
 	render() {
+		const {totalUsersCount, pageSize,
+			users, currentPage,
+			followingInProgress,follow,
+			unfollow, isFetching, setUserID
+		} = this.props
 		
-		let pageCount = Math.ceil( this.props.totalUsersCount / this.props.pageSize )
+		let pageCount = Math.ceil( totalUsersCount / pageSize )
 		let pages = []
 		for ( let i = 1; i <= pageCount; i++ ) {
 			pages.push( i )
@@ -49,15 +57,15 @@ class UsersContainer extends React.Component<UsersPropsType, UserType[]> { //н�
 		return (
 			<>
 					<Users
-						users={ this.props.users }
+						users={ users }
 						pages={ pages }
-						currentPage={ this.props.currentPage }
+						currentPage={ currentPage }
 						onPageChanged={ this.onPageChanged }
-						followingInProgress={ this.props.followingInProgress }
-						follow={ this.props.follow }
-						unfollow={ this.props.unfollow }
-						setUserID={ this.props.setUserID }
-						isFetching={ this.props.isFetching }
+						followingInProgress={ followingInProgress }
+						follow={ follow }
+						unfollow={ unfollow }
+						setUserID={ setUserID }
+						isFetching={ isFetching }
 					/>
 			</>
 		

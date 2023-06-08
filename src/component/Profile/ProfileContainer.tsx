@@ -28,17 +28,19 @@ export type ProfileContainerPropsType = {
 
 class ProfileContainerClass extends React.Component<ProfileContainerPropsType> {
 	componentDidMount() {
-		this.props.getProfile( this.props.profileInfo.profile.userId )
-		this.props.getStatus( this.props.profileInfo.profile.userId )
+		const { getProfile, getStatus, profileInfo } = this.props
+		getProfile( profileInfo.profile.userId )
+		getStatus( profileInfo.profile.userId )
 	}
 	
 	render() {
+		const { profileInfo, updateStatus, status, addPost } = this.props
 		return (
-			<Profile profileInfo={ this.props.profileInfo }
-			         addPost={ this.props.addPost }
-			         status={ this.props.status }
-			         updateStatus={this.props.updateStatus}
-			         userID={this.props.profileInfo.profile.userId }
+			<Profile profileInfo={ profileInfo }
+			         addPost={ addPost }
+			         status={ status }
+			         updateStatus={ updateStatus }
+			         userID={ profileInfo.profile.userId }
 			/>
 		)
 	}

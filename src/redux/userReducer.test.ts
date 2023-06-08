@@ -1,4 +1,4 @@
-import { followUserSuccessAC, setUserAC, UsersPageType, usersReducer } from "./usersReducer";
+import { followingUserSuccessAC, setUserAC, UsersPageType, usersReducer } from "./usersReducer";
 
 let initialState: UsersPageType
 
@@ -114,7 +114,7 @@ beforeEach( () => {
 } )
 
 test( 'change subscription status', () => {
-	const newState = usersReducer( initialState, followUserSuccessAC(  28522 ) )
+	const newState = usersReducer( initialState, followingUserSuccessAC(  28522 ) )
 	
 	expect( newState.users[ 0 ].followed ).toBe( true )
 	expect( initialState.users[ 0 ].followed ).toBe( false )

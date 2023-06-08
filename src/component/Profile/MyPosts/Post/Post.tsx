@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import s from "./Post.module.css";
 import avatarFirst from '../../../../image/avatar/avatarFirst.png'
 
@@ -12,7 +12,7 @@ type PropsType = {
     post: PostType
 }
 
-export const Post: FC <PropsType> = (props) => {
+export const Post: React.FC <PropsType> = (props) => {
     return (
         <div className={s.item}>
             <img src={avatarFirst}
