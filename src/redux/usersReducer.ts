@@ -41,31 +41,35 @@ export type ActionType =
 
 export const usersReducer = ( state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
 	switch ( action.type ) {
-		case 'SET-USERS': {
-			return { ...state, users: action.payload.users}
+		case 'user/SET-USERS': {
+			return { ...state, users: action.payload.users }
 		}
-		case "SET-CURRENT-PAGE": {
-			return {...state, currentPage: action.payload.currentPage}
+		case "user/SET-CURRENT-PAGE": {
+			return { ...state, currentPage: action.payload.currentPage }
 		}
-		case "SET-TOTAL-USER-COUNT": {
-			return {...state, totalUsersCount: action.payload.totalCount}
+		case "user/SET-TOTAL-USER-COUNT": {
+			return { ...state, totalUsersCount: action.payload.totalCount }
 		}
-		case "SET-TOGGLE-IS-FETCHING": {
-			return {...state, isFetching: action.preload.newIsFetching}
+		case "user/SET-TOGGLE-IS-FETCHING": {
+			return { ...state, isFetching: action.preload.newIsFetching }
 		}
-		case "TOGGLE-IN-FOLLOWING-PROGRESS": {
-			return action.progress ? {...state, followingInProgress: [...state.followingInProgress, action.id]}
-				: {...state, followingInProgress: state.followingInProgress.filter((id) => id !== action.id)}
+		case "user/TOGGLE-IN-FOLLOWING-PROGRESS": {
+			return action.progress ? { ...state, followingInProgress: [ ...state.followingInProgress, action.id ] }
+				: { ...state, followingInProgress: state.followingInProgress.filter( ( id ) => id !== action.id ) }
 		}
-		case "FOLLOW-USER": {
-			return {...state, users: state.users.map(u => u.id === action.payload.userID
+		case "user/FOLLOW-USER": {
+			return {
+				...state, users: state.users.map( u => u.id === action.payload.userID
 					?
-					{...u, followed: true}: u)}
+					{ ...u, followed: true } : u )
+			}
 		}
-		case "UNFOLLOW-USER": {
-			return {...state, users: state.users.map(u => u.id === action.payload.userID
+		case "user/UNFOLLOW-USER": {
+			return {
+				...state, users: state.users.map( u => u.id === action.payload.userID
 					?
-					{...u, followed: false}: u)}
+					{ ...u, followed: false } : u )
+			}
 		}
 		default : {
 			return state
@@ -76,7 +80,7 @@ export const usersReducer = ( state: UsersPageType = initialState, action: Actio
 export const followUserSuccessAC = ( userID: number ) => {
 	console.log('followUserAC')
 	return {
-		type: 'FOLLOW-USER',
+		type: 'user/FOLLOW-USER',
 		payload: {
 			userID
 		}
@@ -84,9 +88,8 @@ export const followUserSuccessAC = ( userID: number ) => {
 }
 
 export const unfollowUserSuccessAC = ( userID: number ) => {
-	console.log('unfollowUserAC')
 	return {
-		type: 'UNFOLLOW-USER',
+		type: 'user/UNFOLLOW-USER',
 		payload: {
 			userID
 		}
@@ -95,7 +98,7 @@ export const unfollowUserSuccessAC = ( userID: number ) => {
 
 export const setUserAC = ( users: UserType[] ) => {
 	return {
-		type: 'SET-USERS',
+		type: 'user/SET-USERS',
 		payload: {
 			users
 		}
@@ -103,7 +106,7 @@ export const setUserAC = ( users: UserType[] ) => {
 }
 export const setCurrentPageAC = ( currentPage: number ) => {
 	return {
-		type: "SET-CURRENT-PAGE",
+		type: "user/SET-CURRENT-PAGE",
 		payload: {
 			currentPage
 		}
@@ -111,7 +114,7 @@ export const setCurrentPageAC = ( currentPage: number ) => {
 }
 export const setTotalUsersCountAC = ( totalCount: number) => {
 	return {
-		type: "SET-TOTAL-USER-COUNT",
+		type: "user/SET-TOTAL-USER-COUNT",
 		payload: {
 			totalCount
 		}
@@ -119,7 +122,7 @@ export const setTotalUsersCountAC = ( totalCount: number) => {
 }
 export const toggleIsFetchingAC = ( newIsFetching: boolean) => {
 	return {
-		type: 'SET-TOGGLE-IS-FETCHING',
+		type: 'user/SET-TOGGLE-IS-FETCHING',
 		preload: {
 			newIsFetching
 		}
@@ -128,35 +131,31 @@ export const toggleIsFetchingAC = ( newIsFetching: boolean) => {
 
 export const toggleFollowingProgressAC = ( progress: boolean, id: number ) => {
 	return {
-		type: "TOGGLE-IN-FOLLOWING-PROGRESS",
+		type: "user/TOGGLE-IN-FOLLOWING-PROGRESS",
 		progress, id
 	} as const
 }
 
 
-export const getUserThunkCreater = ( currentPage: number, pageSize: number ) => ( dispatch: DispatchType)  => {
+export const getUserThunkCreater = ( currentPage: number, pageSize: number ) => async ( dispatch: DispatchType ) => {
 	dispatch( toggleIsFetchingAC( true ) ) // при запросе на сервер во время
 	// ожидания ответа включается лоадер
-	usersAPI.getUsers( currentPage, pageSize ).then( data => {
-		dispatch( setUserAC( data.items ) )
-		dispatch( setTotalUsersCountAC( data.totalCount ) )
-		dispatch( toggleIsFetchingAC( false ) )//убирает лоадер с страницы
-	} )
-	
+	const res = await usersAPI.getUsers( currentPage, pageSize )
+	dispatch( setUserAC( res.items ) )
+	dispatch( setTotalUsersCountAC( res.totalCount ) )
+	dispatch( toggleIsFetchingAC( false ) )//убирает лоадер с страницы
 }
 
-export const follow = ( userID: number ) => ( dispatch: DispatchType ) => {
+export const follow = ( userID: number ) => async ( dispatch: DispatchType ) => {
 	dispatch( toggleFollowingProgressAC( true, userID ) )
-	usersAPI.follow( userID ).then( data => {
-		data === 0 && dispatch(followUserSuccessAC( userID ))
-		dispatch(toggleFollowingProgressAC( false, userID ))
-	} )
+	const res = await usersAPI.follow( userID )
+	res === 0 && dispatch( followUserSuccessAC( userID ) )
+	dispatch( toggleFollowingProgressAC( false, userID ) )
 }
 
-export const unfollow = ( userID: number ) => ( dispatch: DispatchType ) => {
+export const unfollow = ( userID: number ) => async ( dispatch: DispatchType ) => {
 	dispatch( toggleFollowingProgressAC( true, userID ) )
-	usersAPI.unfollow( userID ).then( data => {
-		data === 0 && dispatch( unfollowUserSuccessAC( userID ))
- 		dispatch( toggleFollowingProgressAC( false, userID ))
-	} )
+	const res = await usersAPI.unfollow( userID )
+	res === 0 && dispatch( unfollowUserSuccessAC( userID ) )
+	dispatch( toggleFollowingProgressAC( false, userID ) )
 }

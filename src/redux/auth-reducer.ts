@@ -10,7 +10,7 @@ const initialState: ResponseAuthDataType = {
 
 export const authReducer = ( state = initialState, action: ActionType ): ResponseAuthDataType => {
 	switch ( action.type ) {
-		case "SET-USER-DATA": {
+		case "auth/SET-USER-DATA": {
 			return {...state, ...action.payload.authData, isAuth: action.payload.isAuth}
 		}
 		default: {
@@ -21,7 +21,7 @@ export const authReducer = ( state = initialState, action: ActionType ): Respons
 
 export const setUserDataAC = ( authData: ResponseAuthDataType, isAuth: boolean ) => {
 	return {
-		type: "SET-USER-DATA",
+		type: "auth/SET-USER-DATA",
 		payload: {
 			authData,
 			isAuth

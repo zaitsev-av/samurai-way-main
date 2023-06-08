@@ -20,11 +20,11 @@ const initialState = {
 
 export const dialogsReducer = (state: DialogsType = initialState, action:ActionType): DialogsType => {
 	switch (action.type) {
-			case 'ADD-NEW-MESSAGE': {
+			case 'dialog/ADD-NEW-MESSAGE': {
 				const newMessage = { id: v1(), message: action.values}
 				return state = { ...state, messages: [ ...state.messages, newMessage ], newMessageText: '' }
 			}
-		case 'UPDATE-MEW-MESSAGE-TEXT': {
+		case 'dialog/UPDATE-MEW-MESSAGE-TEXT': {
 			return state = {...state, newMessageText: action.newMessageText}
 			// state.dialogsPage.newMessageText = action.newMessageText
 		}
@@ -35,14 +35,14 @@ export const dialogsReducer = (state: DialogsType = initialState, action:ActionT
 
 export const addNewMessageAC = (values: string) => {
 	return {
-		type: 'ADD-NEW-MESSAGE',
+		type: 'dialog/ADD-NEW-MESSAGE',
 		values
 	}as const
 }
 
 export const updateNewMessageAC = ( newMessageText: string ) => {
 	return {
-		type: 'UPDATE-MEW-MESSAGE-TEXT',
+		type: 'dialog/UPDATE-MEW-MESSAGE-TEXT',
 		newMessageText
 	} as const
 }

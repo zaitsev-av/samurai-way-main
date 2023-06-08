@@ -5,17 +5,17 @@ import { v1 } from "uuid";
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
 	switch (action.type) {
-		case 'ADD-POST':{
+		case 'profile/ADD-POST':{
 			const newPost = {id: v1(), text: action.payload.text }
 			return state = {...state, posts: [newPost, ...state.posts], newPostText: ''}
 		}
-		case "SET-USER-PROFILE": {
+		case "profile/SET-USER-PROFILE": {
 			return { ...state, profile: action.payload.profile }
 		}
-		case "SET-USER-ID": {
+		case "profile/SET-USER-ID": {
 			return { ...state, profile: { ...state.profile, userId: action.payload.userID } }
 		}
-		case "SET-STATUS": {
+		case "profile/SET-STATUS": {
 			return {...state, status: action.payload.status}
 		}
 		default :
@@ -26,13 +26,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 //actions
 export const addPostAC = (text: string) => {
 	return {
-		type: 'ADD-POST',
+		type: 'profile/ADD-POST',
 		payload: {text}
 	} as const
 }
 export const setUserProfileAC = ( profile: any) => {
 	return {
-		type: 'SET-USER-PROFILE',
+		type: 'profile/SET-USER-PROFILE',
 		payload: {
 			profile
 		}
@@ -41,7 +41,7 @@ export const setUserProfileAC = ( profile: any) => {
 
 export const setUserIdAC = ( userID: number ) => {
 	return {
-		type: "SET-USER-ID",
+		type: "profile/SET-USER-ID",
 		payload: {
 			userID
 		}
@@ -49,7 +49,7 @@ export const setUserIdAC = ( userID: number ) => {
 }
 export const setStatusAC = ( status: string ) => {
 	return {
-		type: "SET-STATUS",
+		type: "profile/SET-STATUS",
 		payload: { status }
 	} as const
 }
@@ -65,7 +65,6 @@ export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
 
 export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
 	try {
-		    console.log(`updateStatus called ${status}`)
 		const response = await profileAPI.updateStatus(status);
 		if (response.data.resultCode === 0) {
 			dispatch(setStatusAC(status));
