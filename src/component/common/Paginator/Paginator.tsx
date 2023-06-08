@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import s from "./Paginator.module.css";
 import { useDispatch } from "react-redux";
 import { setCurrentPageAC } from "../../../redux/usersReducer";

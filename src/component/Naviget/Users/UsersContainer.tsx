@@ -1,14 +1,14 @@
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/reduxStore";
 import React, { ComponentType } from 'react';
-import { follow,	getUserThunkCreater, unfollow,	UserType } from "../../../redux/usersReducer";
+import { follow, getUserThunkCreater, unfollow, UserType } from "../../../redux/usersReducer";
 import { Users } from "./Users";
-import { Preloader } from "../../common/Loader/Preloader";
 import { setUserIdAC } from "../../../redux/profileReducer";
 import { compose } from "redux";
 import { AuthRedirectComponent } from "../../../hoc/AuthRedirect";
 import {
-	getCurrentPage, getFollowingInProgress,
+	getCurrentPage,
+	getFollowingInProgress,
 	getIsFetching,
 	getPageSize,
 	getTotalUserCount,

@@ -1,4 +1,4 @@
-import { followingUserSuccessAC, setUserAC, UsersPageType, usersReducer } from "./usersReducer";
+import { followingUserSuccessAC, UsersPageType, usersReducer } from "./usersReducer";
 
 let initialState: UsersPageType
 
